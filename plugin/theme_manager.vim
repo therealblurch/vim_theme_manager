@@ -189,7 +189,7 @@ if !exists('g:colorscheme_map')
                           \ },
                           \ {
                           \   'name'              : 'greygull',
-                          \   'variants'          : g:colorscheme_groups.seabird_themes,
+                          \   'variants'          : ['seagull', 'greygull', 'petrel', 'stormpetrel'],
                           \   'NextVariant'       : function('theme_manager#NextColorschemeVariant'),
                           \   'StatusColorscheme' : function('theme_manager#StatusColorscheme'),
                           \   'AirlineTheme'      : function('myfunctions#SeagullAirlineTheme'),
@@ -294,7 +294,7 @@ if !exists('g:colorscheme_map')
                           \ },
                           \ {
                           \   'name'              : 'petrel',
-                          \   'variants'          : g:colorscheme_groups.seabird_themes,
+                          \   'variants'          : ['seagull', 'greygull', 'petrel', 'stormpetrel'],
                           \   'NextVariant'       : function('theme_manager#NextColorschemeVariant'),
                           \   'StatusColorscheme' : function('theme_manager#StatusColorscheme'),
                           \   'AirlineTheme'      : function('myfunctions#SeagullAirlineTheme'),
@@ -308,7 +308,7 @@ if !exists('g:colorscheme_map')
                           \ },
                           \ {
                           \   'name'              : 'seagull',
-                          \   'variants'          : g:colorscheme_groups.seabird_themes,
+                          \   'variants'          : ['seagull', 'greygull', 'petrel', 'stormpetrel'],
                           \   'NextVariant'       : function('theme_manager#NextColorschemeVariant'),
                           \   'StatusColorscheme' : function('theme_manager#StatusColorscheme'),
                           \   'AirlineTheme'      : function('theme_manager#AirlineThemeColorscheme'),
@@ -357,7 +357,7 @@ if !exists('g:colorscheme_map')
                           \ },
                           \ {
                           \   'name'              : 'stormpetrel',
-                          \   'variants'          : g:colorscheme_groups.seabird_themes,
+                          \   'variants'          : ['seagull', 'greygull', 'petrel', 'stormpetrel'],
                           \   'NextVariant'       : function('theme_manager#NextColorschemeVariant'),
                           \   'StatusColorscheme' : function('theme_manager#StatusColorscheme'),
                           \   'AirlineTheme'      : function('myfunctions#SeagullAirlineTheme'),
