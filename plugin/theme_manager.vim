@@ -470,9 +470,6 @@ augroup StatusBarTheme
                     \ | if theme_manager#WhichStatus(expand('<amatch>')) == "none" && exists('g:loaded_airline')
                     \ |   call theme_manager#AirlineTheme()
                     \ | endif
-                    \ | if theme_manager#WhichStatus(expand('<amatch>')) == "none" && !exists('g:loaded_lightline') && !exists('g:loaded_airline')
-                    \ |   packadd vim-buftabline
-                    \ | endif
 augroup END
 
 autocmd! VimEnter * call theme_manager#SetLastColorscheme()
