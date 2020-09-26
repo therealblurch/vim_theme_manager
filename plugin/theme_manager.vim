@@ -453,24 +453,24 @@ augroup END
 augroup StatusBarTheme
   autocmd!
   autocmd Colorscheme * call writefile([&background, expand('<amatch>')], expand(g:colorscheme_file))
-                    \ | if myfunctions#WhichStatus(expand('<amatch>')) == "airline"
+                    \ | if theme_manager#WhichStatus(expand('<amatch>')) == "airline"
                     \ |   packadd vim-airline
                     \ |   packadd vim-airline-themes
                     \ |   let g:airline_section_x = airline#section#create_right(['%-25{g:current_color_dictionary.StatusColorscheme()}', 'bookmark', 'tagbar', 'vista', 'gutentags', 'grepper', 'filetype'])
                     \ |   call theme_manager#AirlineTheme()
                     \ | endif
-                    \ | if myfunctions#WhichStatus(expand('<amatch>')) == "lightline"
+                    \ | if theme_manager#WhichStatus(expand('<amatch>')) == "lightline"
                     \ |   packadd lightline.vim | packadd lightline-buffer
                     \ |   packadd lightline_foobar.vim
                     \ |   call theme_manager#LightlineUpdate()
                     \ | endif
-                    \ | if myfunctions#WhichStatus(expand('<amatch>')) == "none" && exists('g:loaded_lightline')
+                    \ | if theme_manager#WhichStatus(expand('<amatch>')) == "none" && exists('g:loaded_lightline')
                     \ |   call theme_manager#LightlineUpdate()
                     \ | endif
-                    \ | if myfunctions#WhichStatus(expand('<amatch>')) == "none" && exists('g:loaded_airline')
+                    \ | if theme_manager#WhichStatus(expand('<amatch>')) == "none" && exists('g:loaded_airline')
                     \ |   call theme_manager#AirlineTheme()
                     \ | endif
-                    \ | if myfunctions#WhichStatus(expand('<amatch>')) == "none" && !exists('g:loaded_lightline') && !exists('g:loaded_airline')
+                    \ | if theme_manager#WhichStatus(expand('<amatch>')) == "none" && !exists('g:loaded_lightline') && !exists('g:loaded_airline')
                     \ |   packadd vim-buftabline
                     \ | endif
 augroup END
