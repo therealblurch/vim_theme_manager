@@ -72,59 +72,31 @@ function! theme_manager#StatusColorschemeBackground() dict
   return g:colors_name . '/' . &background
 endfunction
 
-function! theme_manager#AirlineThemeColorscheme() dict
+function! theme_manager#Colorscheme() dict
   return g:colors_name
 endfunction
 
-function! theme_manager#AirlineThemeColorschemeTR() dict
+function! theme_manager#ColorschemeTR() dict
   return tr(g:colors_name, self.tr_from, self.tr_to)
 endfunction
 
-function! theme_manager#AirlineThemeColorschemeSub() dict
+function! theme_manager#ColorschemeSub() dict
   return substitute(g:colors_name, self.pat, self.sub, 'g')
 endfunction
 
-function! theme_manager#AirlineThemeColorschemeSubBackground() dict
+function! theme_manager#ColorschemeSubBackground() dict
   return substitute(g:colors_name, self.pat, &background, 'g')
 endfunction
 
-function! theme_manager#AirlineThemeColorschemeLower() dict
+function! theme_manager#ColorschemeLower() dict
   return tolower(g:colors_name)
 endfunction
 
-function! theme_manager#AirlineThemeColorschemeSuffix() dict
+function! theme_manager#ColorschemeSuffix() dict
   return g:colors_name . self.suffix
 endfunction
 
-function! theme_manager#AirlineThemeColorschemeBackground() dict
-  return g:colors_name . '_' . &background
-endfunction
-
-function! theme_manager#LightlineThemeColorscheme() dict
-  return g:colors_name
-endfunction
-
-function! theme_manager#LightlineThemeColorschemeTR() dict
-  return tr(g:colors_name, self.tr_from, self.tr_to)
-endfunction
-
-function! theme_manager#LightlineThemeColorschemeSub() dict
-  return substitute(g:colors_name, self.pat, self.sub, 'g')
-endfunction
-
-function! theme_manager#LightlineThemeColorschemeSubBackground() dict
-  return substitute(g:colors_name, self.pat, &background, 'g')
-endfunction
-
-function! theme_manager#LightlineThemeColorschemeLower() dict
-  return tolower(g:colors_name)
-endfunction
-
-function! theme_manager#LightlineThemeColorschemeSuffix() dict
-  return g:colors_name . self.suffix
-endfunction
-
-function! theme_manager#LightlineThemeColorschemeBackground() dict
+function! theme_manager#ColorschemeBackground() dict
   return g:colors_name . '_' . &background
 endfunction
 
