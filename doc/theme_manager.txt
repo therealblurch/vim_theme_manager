@@ -1,0 +1,130 @@
+================================================================================
+OPTIONS                                                    *theme_manager-options*
+
+                                                              *g:colorscheme_map*
+
+A list of dictionaries that contain information for each colorscheme.  Each
+dictionary must have a 'name' and 'StatusColorscheme' key.  All other keys are
+optional.  Possible keys are:
+
+  name: the name of the colorscheme.  This must be the name used to set the
+    colorscheme.
+
+  comparison: If this is set to 'fuzzy' an exact match of the colorscheme name
+    is not required.  This can be used to set options for a group of
+    colorschemes with a similar name, such as the base16 colorschemes.
+
+  variants: A list of variants of the colorscheme.
+  
+  pre_commands: A list of commands to run before setting the colorscheme.  This
+    is intended to set configuration variables for the colorscheme.
+
+  NextVariant: A funcref to a dictionary function that will switch to a the next
+    colorscheme variant in the variants list.
+
+  DefaultVariant: A funcref to a dictionary function that will set the defaul
+    colorscheme style.
+
+  StatusColorscheme: A funcref to a dictionary function that will return the
+    colorscheme name and variant for use in the status line.
+
+  LightlineTheme: A funcref to a dictionary function that will return the name
+    of the lightline theme for the colorscheme.
+
+  AirlineTheme: A funcref to a dictionary function that will return the name of
+    the airline theme for the colorscheme.
+
+  ToggleScheme: A funcref to a dictionary function that will toggle between dark
+    and light versions of a colorscheme.
+
+  Map: A funcref to a dictionary function that is referenced in the
+    |theme_manager#NextColorschemeVariantMap()| function.
+
+  dark_tag/light_tag: Strings to be used in |theme_manager#ToggleColorscheme()|
+    function.
+
+  style_variable_name: The name of the variable used to set the colorschem
+    style.  This is used by the |theme_manager#NextStyleVariant()| and
+    |theme_manager#ToggleColorschemeStyle()| functions.
+
+  default_style: The users preferred style for the colorscheme.  Used by
+    |theme_manager#DefaultStyleVariant()| and
+    |theme_manager#DefaultStyleBackgroundVariant()| functions.
+
+  tr_from/tr_to: Strings used in |theme_manager#ColorschemeTR()| and
+    |theme_manager#ColorschemeTR()| functions.
+
+  pat/sub: Strings used in |theme_manager#ColorschemeSub()| and 
+    |theme_manager#ColorschemeSub()| functions.
+
+  suffix: String used in |theme_manager#ColorschemeSuffix()| and
+    |theme_manager#ColorschemeSuffix()| functions.
+
+  pat: String used in |theme_manager#ColorschemeSubBackground()| and
+    |theme_manager#ColorschemeSubBackground()| functions.
+
+For example, the dictionary for the ayu colorscheme could look like this:
+
+  let g:colorscheme_map = [
+                          \ {
+                          \   'name'                : 'ayu',
+                          \   'variants'            : ['light', 'dark', 'mirage'],
+                          \   'style_variable_name' : 'g:ayucolor',
+                          \   'default_style'       : 'light',
+                          \   'NextVariant'         : function('theme_manager#NextStyleVariant'),
+                          \   'DefaultVariant'      : function('theme_manager#DefaultStyleVariant'),
+                          \   'StatusColorscheme'   : function('theme_manager#StatusColorschemeStyle'),
+                          \   'LightlineTheme'      : function('theme_manager#Colorscheme'),
+                          \   'AirlineTheme'        : function('theme_manager#Colorscheme'),
+                          \   'ToggleScheme'        : function('theme_manager#ToggleColorschemeStyle'),
+                          \ },
+                          \ ]
+
+A number of built in dictionary functions are available for use in the above
+keys.  For a list of all available functions see |theme_manager-dictionary-functions|.
+
+                                                               *g:prefer_airline*
+
+If a colorscheme has an airline and a lightline theme, this variable selects
+which plugin to activate.  Defaults to 1.  To activate airline:
+
+  let:g_prefer_airline = 1
+
+To activate lightline:
+
+  let g:prefer_airline = 0
+
+                                                        *g:default_airline_theme*
+
+The name of the airline theme to use if the colorscheme doesn't have an airline
+theme.  Default:
+
+  let g:default_airline_theme = 'distinguished'
+
+                                                *g:default_lightline_colorscheme*
+
+The name of the lightline theme to use if the colorscheme doesn't have a
+lightline colorscheme.  Default:
+
+  let g:default_lightline_colorscheme = 'powerline'
+
+                                                             *g:colorscheme_file*
+
+The path to the file used to store the last colorscheme and background.
+
+                                                           *g:colorscheme_groups*
+
+This variable is a dictionary of lists of related colorschemes.  On startup, if
+the last colorscheme used is a member of one of the lists, then theme_manager
+will randomly choose a colorscheme from the list.  Each dictionary key is a
+unique name for that list:
+
+  let g:colorscheme_groups = {
+                             \  'seabird_themes' : [
+                             \                       'greygull',
+                             \                       'petrel',
+                             \                       'seagull',
+                             \                       'stormpetrel'
+                             \                     ],
+                             \ }
+
