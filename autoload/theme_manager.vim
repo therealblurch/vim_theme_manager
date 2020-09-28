@@ -130,8 +130,7 @@ function! theme_manager#AirlineTheme()
     let l:airline_theme = g:default_airline_theme
   endif
   if l:airline_theme != g:colors_name
-    let g:airline_theme = l:airline_theme
-    exec "AirlineTheme " . g:airline_theme
+    exec "AirlineTheme " . l:airline_theme
   endif
 endfunction
 
