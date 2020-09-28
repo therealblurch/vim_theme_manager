@@ -112,6 +112,21 @@ lightline colorscheme.  Default:
 
 The path to the file used to store the last colorscheme and background.
 
+                                                          *g:theme_manager_slash*
+
+The character to use as a separator in |theme_manager#ColorschemeStyle()|,
+|theme_manger#ColorschemeBackgroundStyle()|, and
+|theme_manager#ColorschemeBackgroundSlash()|.  Defaults to '/'.
+
+  let g:theme_manager_slash = '/'
+
+                                                     *g:theme_manager_underscore*
+
+The character to use as a separator in
+|theme_manager#ColorschemeBackgroundUnderscore()|.  Defaults to '_'.
+
+  let g:theme_manager_underscore = '_'
+
                                                            *g:colorscheme_groups*
 
 This variable is a dictionary of lists of related colorschemes.  On startup, if
