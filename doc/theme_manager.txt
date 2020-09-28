@@ -15,7 +15,7 @@ optional.  Possible keys are:
     colorschemes with a similar name, such as the base16 colorschemes.
 
   variants: A list of variants of the colorscheme.
-  
+
   pre_commands: A list of commands to run before setting the colorscheme.  This
     is intended to set configuration variables for the colorscheme.
 
@@ -54,7 +54,7 @@ optional.  Possible keys are:
   tr_from/tr_to: Strings used in |theme_manager#ColorschemeTR()| and
     |theme_manager#ColorschemeTR()| functions.
 
-  pat/sub: Strings used in |theme_manager#ColorschemeSub()| and 
+  pat/sub: Strings used in |theme_manager#ColorschemeSub()| and
     |theme_manager#ColorschemeSub()| functions.
 
   suffix: String used in |theme_manager#ColorschemeSuffix()| and
