@@ -24,6 +24,13 @@ if !exists('g:colorscheme_file')
   let g:colorscheme_file = '~/.vim/.colorscheme'
 endif
 
+if !exists('g:theme_manager_slash')
+  let g:theme_manager_slash = '/'
+endif
+
+if !exists('g:theme_manager_underscore')
+  let g:theme_manager_underscore = '_'
+endif
 augroup ColorschemeSetup
   autocmd!
   if has('patch-8.0.1777')

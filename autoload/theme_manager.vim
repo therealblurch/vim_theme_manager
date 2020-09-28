@@ -60,16 +60,16 @@ endfunction
 
 function! theme_manager#ColorschemeStyle() dict
   exec 'let l:current_style = ' . self.style_variable_name
-  return g:colors_name . '/' . l:current_style
+  return g:colors_name . g:theme_manager_slash . l:current_style
 endfunction
 
 function! theme_manager#ColorschemeBackgroundStyle() dict
   exec 'let l:current_style = ' . self.style_variable_name . '_' . &background
-  return g:colors_name . '/' . l:current_style
+  return g:colors_name . g:theme_manager_slash . l:current_style
 endfunction
 
 function! theme_manager#ColorschemeBackgroundSlash() dict
-  return g:colors_name . '/' . &background
+  return g:colors_name . g:theme_manager_slash . &background
 endfunction
 
 function! theme_manager#ColorschemeTR() dict
@@ -93,7 +93,7 @@ function! theme_manager#ColorschemeSuffix() dict
 endfunction
 
 function! theme_manager#ColorschemeBackgroundUnderscore() dict
-  return g:colors_name . '_' . &background
+  return g:colors_name . g:theme_manager_underscore . &background
 endfunction
 
 function! theme_manager#GetColorDictionary(color_name)
