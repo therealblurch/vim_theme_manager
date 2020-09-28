@@ -1,4 +1,26 @@
 ================================================================================
+OVERVIEW
+
+Theme manager adds the following capabilities:
+
+- Automatically load the colorscheme used the last time that vim was used.
+
+- Randomly load a colorscheme within a user-defined group of colorschemes.
+
+- Activate the airline or lightline plugins if the colorscheme has defined
+  theme for that program.  It is possible to specify which plugin is preferred
+  if both themes exist.
+
+- Specify airline or lightline theme based on the colorscheme.  This is to
+  account for the fact that not all airline or lightline themes are
+  consistently named.
+
+- Provide mappings to quickly toggle between light and dark backgrounds.
+
+- Provide mappings to quickly switch between colorscheme variants if they
+  exist.
+
+================================================================================
 OPTIONS                                                    *theme_manager-options*
 
                                                               *g:colorscheme_map*
