@@ -73,7 +73,7 @@ For example, the dictionary for the ayu colorscheme could look like this:
                           \   'default_style'       : 'light',
                           \   'NextVariant'         : function('theme_manager#NextStyleVariant'),
                           \   'DefaultVariant'      : function('theme_manager#DefaultStyleVariant'),
-                          \   'StatusColorscheme'   : function('theme_manager#StatusColorschemeStyle'),
+                          \   'StatusColorscheme'   : function('theme_manager#ColorschemeStyle'),
                           \   'LightlineTheme'      : function('theme_manager#Colorscheme'),
                           \   'AirlineTheme'        : function('theme_manager#Colorscheme'),
                           \   'ToggleScheme'        : function('theme_manager#ToggleColorschemeStyle'),
