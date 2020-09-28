@@ -128,3 +128,107 @@ unique name for that list:
                              \                     ],
                              \ }
 
+================================================================================
+BUILT-IN DICTIONARY FUNCTIONS
+
+*theme_manager#NextColorschemeVariant()*
+
+The list of variants for the colorscheme is created using the 'variants' key in
+the colorscheme dictionary.  This function changes the colorscheme to the next
+colorscheme in the variant list.
+
+*theme_manager#NextColorschemeVariantMap()*
+
+The list of variants for the colorscheme is created by using the 'variants' key
+in the dictionary as processed through the Map function.  This function changed
+the colorscheme to the next colorscheme in the variant list.
+
+*theme_manager#NextStyleVariant()*
+
+The list of variants for the colorscheme is created using the 'variants' key in
+the colorscheme dictionary.  This function sets the style variable referenced in
+the 'style_variable_name' key to the next variant in the list.
+
+*theme_manager#NextStyleBackgroundVariant()*
+
+The list of variants for the colorscheme is created using the 'variants' key in
+the colorscheme dictionary.  This function appends the current background to the
+'style_variable_name' and sets the style variant variable to the next variant in
+the list.
+
+*theme_manager#DefaultStyleVariant()*
+
+Sets the style variant variable in 'style_variable_name' to the value in the
+'default_style' key.
+
+*theme_manager#DefaultStyleBackgroundVariant()*
+
+Sets the style variant variable in 'style_variable_name' appended to the current
+background to the value in the 'default_style' key.
+
+*theme_manager#NextBackgroundVariant()*
+
+Switches to the next colorscheme variant by toggling the background.
+
+*theme_manager#ToggleBackground()*
+
+Toggles the background.
+
+*theme_manager#ToggleColorscheme()*
+
+Changes the background by loading the light or dark version of the colorscheme.
+
+*theme_manager#ToggleColorschemeStyle()*
+
+Changes the background by changing the style variable.
+
+*theme_manager#Colorscheme()*
+
+Returns the name of the colorscheme.
+
+*theme_manager#ColorschemeStyle()*
+
+Returns the name of the colorscheme appended with the value of the style
+variable.  The separator between the colorscheme and the style is
+|g:theme_manager_slash|.
+
+*theme_manager#ColorsSchemeBackgroundStyle()*
+
+Returns the name of the colorscheme appeneded with the value of the style
+variable.  The style variable name is appended with the current background.
+The separator between the colorscheme and the style is |g:theme_manager_slash|.
+
+*theme_manager#ColorschemeBackgroundSlash()*
+
+Returns the name of the colorscheme apprended with the current background.
+The separator between the colorscheme and the background is
+|g:theme_manager_slash|.
+
+*theme_namager#ColorschemeTR()*
+
+Returns the colorscheme with characters found in the 'tr_from' key replaced
+with characters in the 'tr_to' key.
+
+*theme_manager#ColorscheemSub()*
+
+Returns the colorscheme with the string in the 'pat' key replaced with the
+string in the 'sub' key.
+
+*theme_manager#ColorschemeSubBackground()*
+
+Returns the colorscheme with the string in the 'pat' key replaced with the
+current background.
+
+*theme_manager#ColorschemeLower()*
+
+Returns the colorscheme name in lower case.
+
+*theme_manager#ColorschemeSuffix()*
+
+Returns the colorscheme appended with the string in the 'suffix' key.
+
+*theme_manager#ColorschemeBackgroundUnderscore()*
+
+Returns the name of the colorscheme apprended with the current background.
+The separator between the colorscheme and the background is
+|g:theme_manager_underscore|.
