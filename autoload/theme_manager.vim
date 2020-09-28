@@ -125,11 +125,14 @@ endfunction
 
 function! theme_manager#AirlineTheme()
   if has_key (g:current_color_dictionary, 'AirlineTheme')
-    let g:airline_theme = g:current_color_dictionary.AirlineTheme()
+    let l:airline_theme = g:current_color_dictionary.AirlineTheme()
   else
-    let g:airline_theme = g:default_airline_theme
+    let l:airline_theme = g:default_airline_theme
   endif
-  exec "AirlineTheme " . g:airline_theme
+  if l:airline_theme != g:colors_name
+    let g:airline_theme = l:airline_theme
+    exec "AirlineTheme " . g:airline_theme
+  endif
 endfunction
 
 function! theme_manager#LightlineUpdate()
