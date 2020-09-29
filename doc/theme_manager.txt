@@ -29,6 +29,7 @@ KEYMAPS
 {count}<leader>-   Cycle backwards through theme variants.
 {count}<leader>+   Cycle forwards through theme variants.
 <leader>b          Toggle background.
+<leader>r          Load random colorscheme.
 
 ================================================================================
 OPTIONS                                                    *theme_manager-options*
