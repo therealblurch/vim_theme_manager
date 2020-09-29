@@ -125,9 +125,7 @@ function! theme_manager#AirlineTheme()
   else
     let l:airline_theme = g:default_airline_theme
   endif
-  if l:airline_theme != g:colors_name
-    exec "AirlineTheme " . l:airline_theme
-  endif
+  exec "AirlineTheme " . l:airline_theme
 endfunction
 
 function! theme_manager#LightlineUpdate()
