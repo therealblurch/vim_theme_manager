@@ -175,7 +175,7 @@ function! s:SetColorscheme(new_colorscheme)
     silent exec 'doautocmd ColorschemePre ' . a:new_colorscheme
   endif
   exec 'colors ' . a:new_colorscheme
-nipMateNextOrTrigger let g:colors_name = a:new_colorscheme
+  let g:colors_name = a:new_colorscheme
   silent exec 'doautocmd Colorscheme ' . a:new_colorscheme
 endfunction
 
