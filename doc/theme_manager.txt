@@ -159,6 +159,10 @@ The character to use as a separator in
 
   let g:theme_manager_underscore = '_'
 
+                                                      *g:theme_manager_randomize*
+Load a random colorscheme from g:colorscheme_map instead of loading the last
+colorscheme.
+
                                                            *g:colorscheme_groups*
 
 This variable is a dictionary of lists of related colorschemes.  On startup, if

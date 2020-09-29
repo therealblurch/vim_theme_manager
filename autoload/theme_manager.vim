@@ -152,16 +152,37 @@ function! theme_manager#SetLightlineColorscheme(name) abort
   call lightline#update()
 endfunction
 
-function! s:ChooseNextColorscheme (last_colorscheme)
-  let l:new_colorscheme = a:last_colorscheme
-  for colorscheme_group in values(g:colorscheme_groups)
-    for colorscheme_group_member in colorscheme_group
-      if a:last_colorscheme == colorscheme_group_member
-        let l:new_colorscheme = colorscheme_group[localtime() % len(colorscheme_group)]
-        break
-      endif
-    endfor
+function! s:ColorschemeList()
+  let matches = {}
+  let l:theme_list = split(globpath(&runtimepath, 'colors/*.vim'), '\n')
+  for l:file in l:theme_list
+    let l:scheme = fnamemodify(l:file, ':t:r')
+    let l:color_dictionary = theme_manager#GetColorDictionary(l:scheme)
+    if l:scheme =~ l:color_dictionary.name
+      let matches[l:scheme] = 1
+    endif
   endfor
+  return sort(keys(matches), 1)
+endfunction
+
+function! s:ChooseNextColorscheme (last_colorscheme)
+  if g:theme_manager_randomize
+    let l:themes = s:ColorschemeList()
+    let l:time = split(reltimestr(reltime()), '\.')
+    let l:micro = l:time[-1] + 0
+    let l:choice = l:micro % len(l:themes)
+    let l:new_colorscheme = l:themes[l:choice]
+  else
+    let l:new_colorscheme = a:last_colorscheme
+    for colorscheme_group in values(g:colorscheme_groups)
+      for colorscheme_group_member in colorscheme_group
+        if a:last_colorscheme == colorscheme_group_member
+          let l:new_colorscheme = colorscheme_group[localtime() % len(colorscheme_group)]
+          break
+        endif
+      endfor
+    endfor
+  endif
   return l:new_colorscheme
 endfunction
 

@@ -4,6 +4,7 @@ g:colorscheme_map	theme_manager.txt	/*g:colorscheme_map*
 g:default_airline_theme	theme_manager.txt	/*g:default_airline_theme*
 g:default_lightline_colorscheme	theme_manager.txt	/*g:default_lightline_colorscheme*
 g:prefer_airline	theme_manager.txt	/*g:prefer_airline*
+g:theme_manager_randomize	theme_manager.txt	/*g:theme_manager_randomize*
 g:theme_manager_slash	theme_manager.txt	/*g:theme_manager_slash*
 g:theme_manager_underscore	theme_manager.txt	/*g:theme_manager_underscore*
 theme_manager#ColorsSchemeBackgroundStyle()	theme_manager.txt	/*theme_manager#ColorsSchemeBackgroundStyle()*

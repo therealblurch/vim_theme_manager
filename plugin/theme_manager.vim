@@ -31,6 +31,11 @@ endif
 if !exists('g:theme_manager_underscore')
   let g:theme_manager_underscore = '_'
 endif
+
+if !exists('g:theme_manager_randomize')
+  let g:theme_manager_randomize = 0
+endif
+
 augroup ColorschemeSetup
   autocmd!
   if has('patch-8.0.1777')
