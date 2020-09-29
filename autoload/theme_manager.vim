@@ -168,12 +168,13 @@ endfunction
 function! theme_manager#SetLastColorscheme()
   let l:last_colorscheme = readfile(expand(g:colorscheme_file))
   exec 'set background='.l:last_colorscheme[0]
+  let l:new_colorscheme = s:ChooseNextColorscheme(l:last_colorscheme[1])
   if has('patch-8.0.1777')
-    silent exec 'doautocmd ColorschemePre ' . l:last_colorscheme[1]
+    silent exec 'doautocmd ColorschemePre ' . l:new_colorscheme
   endif
-  exec 'colors ' . l:last_colorscheme[1]
-  let g:colors_name = l:last_colorscheme[1]
-  silent exec 'doautocmd Colorscheme ' . l:last_colorscheme[1]
+  exec 'colors ' . l:new_colorscheme
+  let g:colors_name = l:new_colorscheme
+  silent exec 'doautocmd Colorscheme ' . l:new_colorscheme
 endfunction
 
 function! theme_manager#WhichStatus(colorscheme)
