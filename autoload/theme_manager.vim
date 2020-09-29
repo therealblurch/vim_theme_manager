@@ -168,10 +168,7 @@ endfunction
 function! s:ChooseNextColorscheme (last_colorscheme)
   if g:theme_manager_randomize
     let l:themes = s:ColorschemeList()
-    let l:time = split(reltimestr(reltime()), '\.')
-    let l:micro = l:time[-1] + 0
-    let l:choice = l:micro % len(l:themes)
-    let l:new_colorscheme = l:themes[l:choice]
+    let l:new_colorscheme = l:themes[localtime() % len(l:themes)]
   else
     let l:new_colorscheme = a:last_colorscheme
     for colorscheme_group in values(g:colorscheme_groups)
