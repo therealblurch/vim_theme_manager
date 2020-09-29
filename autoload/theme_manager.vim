@@ -164,8 +164,9 @@ function! s:ColorschemeList()
 endfunction
 
 function! s:Random(number)
-  let l:new_number = localtime() % a:number
-  return l:new_number
+  let l:time = split(reltimestr(reltime()), '\.')
+  let l:ms = l:time[-1] + 0
+  return l:ms % a:number
 endfunction
 
 function! s:SetColorscheme(new_colorscheme)
