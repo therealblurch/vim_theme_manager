@@ -88,3 +88,4 @@ autocmd! VimEnter * call theme_manager#SetLastColorscheme()
 nmap <silent> <leader>- :<c-u>call theme_manager#SchemeVariant(-v:count1)<cr>
 nmap <silent> <leader>+ :<c-u>call theme_manager#SchemeVariant(+v:count1)<cr>
 nmap <silent> <leader>b :<c-u>call theme_manager#ToggleScheme()<cr>
+nmap <silent> <leader>r :<c-u>call theme_manager#SetRandomColorscheme()<cr>
