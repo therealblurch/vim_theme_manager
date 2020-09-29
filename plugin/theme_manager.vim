@@ -36,6 +36,10 @@ if !exists('g:theme_manager_randomize')
   let g:theme_manager_randomize = 0
 endif
 
+if !exists('g:theme_manager_randomize_group')
+  let g:theme_manager_randomize_group = 0
+endif
+
 augroup ColorschemeSetup
   autocmd!
   if has('patch-8.0.1777')

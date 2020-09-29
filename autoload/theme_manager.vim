@@ -165,34 +165,49 @@ function! s:ColorschemeList()
   return sort(keys(matches), 1)
 endfunction
 
-function! s:ChooseNextColorscheme (last_colorscheme)
-  if g:theme_manager_randomize
-    let l:themes = s:ColorschemeList()
-    let l:new_colorscheme = l:themes[localtime() % len(l:themes)]
-  else
-    let l:new_colorscheme = a:last_colorscheme
-    for colorscheme_group in values(g:colorscheme_groups)
-      for colorscheme_group_member in colorscheme_group
-        if a:last_colorscheme == colorscheme_group_member
-          let l:new_colorscheme = colorscheme_group[localtime() % len(colorscheme_group)]
-          break
-        endif
-      endfor
-    endfor
+function! s:Random(number)
+  let l:new_number = localtime() % a:number
+  return l:new_number
+endfunction
+
+function! s:SetColorscheme(new_colorscheme)
+  if has('patch-8.0.1777')
+    silent exec 'doautocmd ColorschemePre ' . a:new_colorscheme
   endif
-  return l:new_colorscheme
+  exec 'colors ' . a:new_colorscheme
+nipMateNextOrTrigger let g:colors_name = a:new_colorscheme
+  silent exec 'doautocmd Colorscheme ' . a:new_colorscheme
+endfunction
+
+function! theme_manager#SetRandomGroupColorscheme (last_colorscheme)
+  let l:new_colorscheme = a:last_colorscheme
+  for colorscheme_group in values(g:colorscheme_groups)
+    for colorscheme_group_member in colorscheme_group
+      if a:last_colorscheme == colorscheme_group_member
+        let l:new_colorscheme = colorscheme_group[s:Random(len(colorscheme_group))]
+        break
+      endif
+    endfor
+  endfor
+  call s:SetColorscheme (l:new_colorscheme)
+endfunction
+
+function! theme_manager#SetRandomColorscheme()
+  let l:themes = s:ColorschemeList()
+  let l:new_colorscheme = l:themes[s:Random(len(l:themes))]
+  call s:SetColorscheme (l:new_colorscheme)
 endfunction
 
 function! theme_manager#SetLastColorscheme()
   let l:last_colorscheme = readfile(expand(g:colorscheme_file))
   exec 'set background='.l:last_colorscheme[0]
-  let l:new_colorscheme = s:ChooseNextColorscheme(l:last_colorscheme[1])
-  if has('patch-8.0.1777')
-    silent exec 'doautocmd ColorschemePre ' . l:new_colorscheme
+  if g:theme_manager_randomize
+    call theme_manager#SetRandomColorscheme()
+  elseif g:theme_manager_randomize_group
+    call theme_manager#SetRandomGroupColorscheme(l:last_colorscheme)
+  else
+    call s:SetColorscheme(l:last_colorscheme)
   endif
-  exec 'colors ' . l:new_colorscheme
-  let g:colors_name = l:new_colorscheme
-  silent exec 'doautocmd Colorscheme ' . l:new_colorscheme
 endfunction
 
 function! theme_manager#WhichStatus(colorscheme)
