@@ -205,7 +205,7 @@ function! theme_manager#SetLastColorscheme()
   elseif g:theme_manager_randomize_group
     call theme_manager#SetRandomGroupColorscheme(l:last_colorscheme)
   else
-    call s:SetColorscheme(l:last_colorscheme)
+    call s:SetColorscheme(l:last_colorscheme[1])
   endif
 endfunction
 
