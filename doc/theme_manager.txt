@@ -37,12 +37,12 @@ OPTIONS                                                    *theme_manager-option
                                                               *g:colorscheme_map*
 
 A dictionary of dictionaries that contain information for each colorscheme.  Each
-dictionary must have a 'StatusColorscheme' key.  All other keys are optional.
+dictionary must have a 'Status' key.  All other keys are optional.
 Possible keys are:
 
   variants: A list of variants of the colorscheme.
 
-  pre_commands: A list of commands to run before setting the colorscheme.  This
+  Pre: A list of commands to run before setting the colorscheme.  This
     is intended to set configuration variables for the colorscheme.
 
   NextVariant: A funcref to a dictionary function that will switch to a the next
@@ -51,45 +51,44 @@ Possible keys are:
   DefaultVariant: A funcref to a dictionary function that will set the defaul
     colorscheme style.
 
-  StatusColorscheme: A funcref to a dictionary function that will return the
+  Status: A funcref to a dictionary function that will return the
     colorscheme name and variant for use in the status line.
 
-  LightlineTheme: A funcref to a dictionary function that will return the name
+  Lightline: A funcref to a dictionary function that will return the name
     of the lightline theme for the colorscheme.
 
-  AirlineTheme: A funcref to a dictionary function that will return the name of
+  Airline: A funcref to a dictionary function that will return the name of
     the airline theme for the colorscheme.
 
-  ToggleScheme: A funcref to a dictionary function that will toggle between dark
+  Toggle: A funcref to a dictionary function that will toggle between dark
     and light versions of a colorscheme.
 
   Map: A funcref to a dictionary function that is referenced in the
     |theme_manager#NextColorschemeVariantMap()| function.
 
-  style_variable_name: The name of the variable used to set the colorschem
+  StyleVariable: The name of the variable used to set the colorschem
     style.  This is used by the |theme_manager#NextStyleVariant()| and
     |theme_manager#ToggleColorschemeStyle()| functions.
 
-  default_style: The users preferred style for the colorscheme.  Used by
+  DefaultStyle: The users preferred style for the colorscheme.  Used by
     |theme_manager#DefaultStyleVariant()| and
     |theme_manager#DefaultStyleBackgroundVariant()| functions.
 
 For example, the dictionary for the ayu colorscheme could look like this:
 
-  let g:colorscheme_map = [
-                          \ {
-                          \   'name'                : 'ayu',
-                          \   'variants'            : ['light', 'dark', 'mirage'],
-                          \   'style_variable_name' : 'g:ayucolor',
-                          \   'default_style'       : 'light',
-                          \   'NextVariant'         : function('theme_manager#NextStyleVariant'),
-                          \   'DefaultVariant'      : function('theme_manager#DefaultStyleVariant'),
-                          \   'StatusColorscheme'   : function('theme_manager#ColorschemeStyle'),
-                          \   'LightlineTheme'      : function('theme_manager#Colorscheme'),
-                          \   'AirlineTheme'        : function('theme_manager#Colorscheme'),
-                          \   'ToggleScheme'        : function('theme_manager#ToggleColorschemeStyle'),
+  let g:colorscheme_map = {
+                          \ 'ayu': {
+                          \   'variants'       : ['light', 'dark', 'mirage'],
+                          \   'StyleVariable'  : 'g:ayucolor',
+                          \   'DefaultStyle'   : 'light',
+                          \   'NextVariant'    : function('theme_manager#NextStyleVariant'),
+                          \   'DefaultVariant' : function('theme_manager#DefaultStyleVariant'),
+                          \   'Status'         : function('theme_manager#ColorschemeStyle'),
+                          \   'Lightline'      : function('theme_manager#Colorscheme'),
+                          \   'Airline'        : function('theme_manager#Colorscheme'),
+                          \   'Toggle'         : function('theme_manager#ToggleColorschemeStyle'),
                           \ },
-                          \ ]
+                          \ }
 
 A number of built in dictionary functions are available for use in the above
 keys.  For a list of all available functions see |theme_manager-dictionary-functions|.
@@ -177,24 +176,24 @@ the colorscheme to the next colorscheme in the variant list.
 
 The list of variants for the colorscheme is created using the 'variants' key in
 the colorscheme dictionary.  This function sets the style variable referenced in
-the 'style_variable_name' key to the next variant in the list.
+the 'StyleVariable' key to the next variant in the list.
 
 *theme_manager#NextStyleBackgroundVariant()*
 
 The list of variants for the colorscheme is created using the 'variants' key in
 the colorscheme dictionary.  This function appends the current background to the
-'style_variable_name' and sets the style variant variable to the next variant in
+'StyleVariable' and sets the style variant variable to the next variant in
 the list.
 
 *theme_manager#DefaultStyleVariant()*
 
-Sets the style variant variable in 'style_variable_name' to the value in the
-'default_style' key.
+Sets the style variant variable in 'StyleVariable' to the value in the
+'DefaultStyle' key.
 
 *theme_manager#DefaultStyleBackgroundVariant()*
 
-Sets the style variant variable in 'style_variable_name' appended to the current
-background to the value in the 'default_style' key.
+Sets the style variant variable in 'StyleVariable' appended to the current
+background to the value in the 'DefaultStyle' key.
 
 *theme_manager#NextBackgroundVariant()*
 

@@ -53,8 +53,8 @@ augroup ColorschemeSetup
                          \ |     call g:current_color_dictionary.DefaultVariant()
                          \ |   endif
                          \ | endif
-                         \ | if has_key (g:current_color_dictionary, 'pre_commands')
-                         \ |   for command in g:current_color_dictionary.pre_commands
+                         \ | if has_key (g:current_color_dictionary, 'Pre')
+                         \ |   for command in g:current_color_dictionary.Pre
                          \ |     exec command
                          \ |   endfor
                          \ | endif
@@ -67,7 +67,7 @@ augroup StatusBarTheme
                     \ | if theme_manager#WhichStatus(expand('<amatch>')) == "airline"
                     \ |   packadd vim-airline
                     \ |   packadd vim-airline-themes
-                    \ |   let g:airline_section_x = airline#section#create_right(['%-25{g:current_color_dictionary.StatusColorscheme()}', 'bookmark', 'tagbar', 'vista', 'gutentags', 'grepper', 'filetype'])
+                    \ |   let g:airline_section_x = airline#section#create_right(['%-25{g:current_color_dictionary.Status()}', 'bookmark', 'tagbar', 'vista', 'gutentags', 'grepper', 'filetype'])
                     \ |   call theme_manager#AirlineTheme()
                     \ | endif
                     \ | if theme_manager#WhichStatus(expand('<amatch>')) == "lightline"
@@ -87,5 +87,5 @@ autocmd! VimEnter * call theme_manager#SetLastColorscheme()
 
 nmap <silent> <leader>- :<c-u>call theme_manager#SchemeVariant(-v:count1)<cr>
 nmap <silent> <leader>+ :<c-u>call theme_manager#SchemeVariant(+v:count1)<cr>
-nmap <silent> <leader>b :<c-u>call theme_manager#ToggleScheme()<cr>
+nmap <silent> <leader>b :<c-u>call theme_manager#Toggle()<cr>
 nmap <silent> <leader>r :<c-u>call theme_manager#SetRandomColorscheme()<cr>
