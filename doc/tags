@@ -8,14 +8,12 @@ g:theme_manager_randomize	theme_manager.txt	/*g:theme_manager_randomize*
 g:theme_manager_slash	theme_manager.txt	/*g:theme_manager_slash*
 g:theme_manager_underscore	theme_manager.txt	/*g:theme_manager_underscore*
 theme_manager#ColorsSchemeBackgroundStyle()	theme_manager.txt	/*theme_manager#ColorsSchemeBackgroundStyle()*
-theme_manager#ColorscheemSub()	theme_manager.txt	/*theme_manager#ColorscheemSub()*
 theme_manager#Colorscheme()	theme_manager.txt	/*theme_manager#Colorscheme()*
 theme_manager#ColorschemeBackgroundSlash()	theme_manager.txt	/*theme_manager#ColorschemeBackgroundSlash()*
 theme_manager#ColorschemeBackgroundUnderscore()	theme_manager.txt	/*theme_manager#ColorschemeBackgroundUnderscore()*
 theme_manager#ColorschemeLower()	theme_manager.txt	/*theme_manager#ColorschemeLower()*
+theme_manager#ColorschemeRemoveDash()	theme_manager.txt	/*theme_manager#ColorschemeRemoveDash()*
 theme_manager#ColorschemeStyle()	theme_manager.txt	/*theme_manager#ColorschemeStyle()*
-theme_manager#ColorschemeSubBackground()	theme_manager.txt	/*theme_manager#ColorschemeSubBackground()*
-theme_manager#ColorschemeSuffix()	theme_manager.txt	/*theme_manager#ColorschemeSuffix()*
 theme_manager#DefaultStyleBackgroundVariant()	theme_manager.txt	/*theme_manager#DefaultStyleBackgroundVariant()*
 theme_manager#DefaultStyleVariant()	theme_manager.txt	/*theme_manager#DefaultStyleVariant()*
 theme_manager#NextBackgroundVariant()	theme_manager.txt	/*theme_manager#NextBackgroundVariant()*
@@ -27,4 +25,4 @@ theme_manager#ToggleBackground()	theme_manager.txt	/*theme_manager#ToggleBackgro
 theme_manager#ToggleColorscheme()	theme_manager.txt	/*theme_manager#ToggleColorscheme()*
 theme_manager#ToggleColorschemeStyle()	theme_manager.txt	/*theme_manager#ToggleColorschemeStyle()*
 theme_manager-options	theme_manager.txt	/*theme_manager-options*
-theme_namager#ColorschemeTR()	theme_manager.txt	/*theme_namager#ColorschemeTR()*
+theme_namager#ColorschemeDashtoUnderscore()	theme_manager.txt	/*theme_namager#ColorschemeDashtoUnderscore()*

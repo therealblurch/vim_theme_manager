@@ -73,9 +73,6 @@ optional.  Possible keys are:
   Map: A funcref to a dictionary function that is referenced in the
     |theme_manager#NextColorschemeVariantMap()| function.
 
-  dark_tag/light_tag: Strings to be used in |theme_manager#ToggleColorscheme()|
-    function.
-
   style_variable_name: The name of the variable used to set the colorschem
     style.  This is used by the |theme_manager#NextStyleVariant()| and
     |theme_manager#ToggleColorschemeStyle()| functions.
