@@ -36,12 +36,9 @@ OPTIONS                                                    *theme_manager-option
 
                                                               *g:colorscheme_map*
 
-A list of dictionaries that contain information for each colorscheme.  Each
-dictionary must have a 'name' and 'StatusColorscheme' key.  All other keys are
-optional.  Possible keys are:
-
-  name: the name of the colorscheme.  This must be the name used to set the
-    colorscheme.
+A dictionary of dictionaries that contain information for each colorscheme.  Each
+dictionary must have a 'StatusColorscheme' key.  All other keys are optional.
+Possible keys are:
 
   variants: A list of variants of the colorscheme.
 

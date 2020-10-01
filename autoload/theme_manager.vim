@@ -17,13 +17,13 @@ endfunction
 function! theme_manager#NextStyleVariant(delta) dict
   let l:num_variants = len(self.variants)
   exec 'let ' . self.style_variable_name . ' = self.variants[((a:delta+index(self.variants, ' . self.style_variable_name . ')) % l:num_variants + l:num_variants) % l:num_variants]'
-  exec 'colors ' . self.name
+  exec 'colors ' . g:colors_name
 endfunction
 
 function! theme_manager#NextStyleBackgroundVariant(delta) dict
   let l:num_variants = len(self.variants)
   exec 'let ' . self.style_variable_name . '_' . &background . ' = self.variants[((a:delta+index(self.variants, ' . self.style_variable_name . '_' . &background . ')) % l:num_variants + l:num_variants) % l:num_variants]'
-  exec 'colors ' . self.name
+  exec 'colors ' . g:colors_name
 endfunction
 
 function! theme_manager#DefaultStyleVariant() dict
@@ -51,7 +51,7 @@ function! theme_manager#ToggleColorschemeStyle() dict
   exec 'let l:current_style = ' . self.style_variable_name
   let l:current_style = (l:current_style == 'dark') ? 'light' : 'dark'
   exec 'let ' . self.style_variable_name . " = '" . l:current_style . "'"
-  exec 'colors ' . self.name
+  exec 'colors ' . g:colors_name
 endfunction
 
 function! theme_manager#Colorscheme() dict
@@ -93,14 +93,18 @@ function! theme_manager#ColorschemeBackgroundUnderscore() dict
 endfunction
 
 function! theme_manager#GetColorDictionary(color_name)
-  let l:color = {}
-  for color in g:colorscheme_map
-    if a:color_name =~ color.name
-      let l:color = color
-      break
-    endif
-  endfor
-  return l:color
+  let l:color_dictionary = {}
+  try
+    let l:color_dictionary = g:colorscheme_map[a:color_name]
+  catch /^Vim\%((\a\+)\)\=:E716:/ " catch error E716
+    for color in keys(g:colorscheme_map)
+      if a:color_name =~ color
+        let l:color_dictionary = g:colorscheme_map[color]
+        break
+      endif
+    endfor
+  endtry
+  return l:color_dictionary
 endfunction
 
 function! theme_manager#SchemeVariant(delta) abort
@@ -152,7 +156,7 @@ function! s:ColorschemeList()
   for l:file in l:theme_list
     let l:scheme = fnamemodify(l:file, ':t:r')
     let l:color_dictionary = theme_manager#GetColorDictionary(l:scheme)
-    if l:scheme =~ l:color_dictionary.name
+    if l:color_dictionary != {}
       let matches[l:scheme] = 1
     endif
   endfor
