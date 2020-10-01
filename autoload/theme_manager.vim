@@ -43,7 +43,7 @@ function! theme_manager#ToggleBackground() dict
 endfunction
 
 function! theme_manager#ToggleColorscheme() dict
-  let l:new_colorscheme = (g:colors_name =~# self.dark_tag) ? substitute(g:colors_name, self.dark_tag, self.light_tag, '') : substitute(g:colors_name, self.light_tag, self.dark_tag, '')
+  let l:new_colorscheme = (g:colors_name =~# 'dark') ? substitute(g:colors_name, 'dark', 'light', '') : substitute(g:colors_name, 'light', 'dark', '')
   exec 'colors ' . l:new_colorscheme
 endfunction
 
