@@ -72,16 +72,12 @@ function! theme_manager#ColorschemeBackgroundSlash() dict
   return g:colors_name . g:theme_manager_slash . &background
 endfunction
 
-function! theme_manager#ColorschemeTR() dict
-  return tr(g:colors_name, self.tr_from, self.tr_to)
+function! theme_manager#ColorschemeDashtoUnderscore() dict
+  return tr(g:colors_name, '-', '_')
 endfunction
 
-function! theme_manager#ColorschemeSub() dict
-  return substitute(g:colors_name, self.pat, self.sub, 'g')
-endfunction
-
-function! theme_manager#ColorschemeSubBackground() dict
-  return substitute(g:colors_name, self.pat, &background, 'g')
+function! theme_manager#ColorschemeRemoveDash() dict
+  return substitute(g:colors_name, '-', '', 'g')
 endfunction
 
 function! theme_manager#ColorschemeLower() dict

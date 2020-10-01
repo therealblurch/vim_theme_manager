@@ -84,18 +84,6 @@ optional.  Possible keys are:
     |theme_manager#DefaultStyleVariant()| and
     |theme_manager#DefaultStyleBackgroundVariant()| functions.
 
-  tr_from/tr_to: Strings used in |theme_manager#ColorschemeTR()| and
-    |theme_manager#ColorschemeTR()| functions.
-
-  pat/sub: Strings used in |theme_manager#ColorschemeSub()| and
-    |theme_manager#ColorschemeSub()| functions.
-
-  suffix: String used in |theme_manager#ColorschemeSuffix()| and
-    |theme_manager#ColorschemeSuffix()| functions.
-
-  pat: String used in |theme_manager#ColorschemeSubBackground()| and
-    |theme_manager#ColorschemeSubBackground()| functions.
-
 For example, the dictionary for the ayu colorscheme could look like this:
 
   let g:colorscheme_map = [
@@ -256,28 +244,17 @@ Returns the name of the colorscheme apprended with the current background.
 The separator between the colorscheme and the background is
 |g:theme_manager_slash|.
 
-*theme_namager#ColorschemeTR()*
+*theme_namager#ColorschemeDashtoUnderscore()*
 
-Returns the colorscheme with characters found in the 'tr_from' key replaced
-with characters in the 'tr_to' key.
+Returns the colorscheme with all '-' characters changed to '_'.
 
-*theme_manager#ColorscheemSub()*
+*theme_manager#ColorschemeRemoveDash()*
 
-Returns the colorscheme with the string in the 'pat' key replaced with the
-string in the 'sub' key.
-
-*theme_manager#ColorschemeSubBackground()*
-
-Returns the colorscheme with the string in the 'pat' key replaced with the
-current background.
+Returns the colorscheme with all '-' characters removed.
 
 *theme_manager#ColorschemeLower()*
 
 Returns the colorscheme name in lower case.
-
-*theme_manager#ColorschemeSuffix()*
-
-Returns the colorscheme appended with the string in the 'suffix' key.
 
 *theme_manager#ColorschemeBackgroundUnderscore()*
 
