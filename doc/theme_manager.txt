@@ -43,10 +43,6 @@ optional.  Possible keys are:
   name: the name of the colorscheme.  This must be the name used to set the
     colorscheme.
 
-  comparison: If this is set to 'fuzzy' an exact match of the colorscheme name
-    is not required.  This can be used to set options for a group of
-    colorschemes with a similar name, such as the base16 colorschemes.
-
   variants: A list of variants of the colorscheme.
 
   pre_commands: A list of commands to run before setting the colorscheme.  This

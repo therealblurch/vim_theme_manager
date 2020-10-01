@@ -95,7 +95,7 @@ endfunction
 function! theme_manager#GetColorDictionary(color_name)
   let l:color = {}
   for color in g:colorscheme_map
-    if a:color_name == color.name || (has_key(color, 'comparison') && color.comparison == 'fuzzy' && a:color_name =~ color.name)
+    if a:color_name =~ color.name
       let l:color = color
       break
     endif
