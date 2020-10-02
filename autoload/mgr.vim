@@ -1,12 +1,12 @@
-function! theme_manager#NextColorschemeVariant(delta) dict
+function! mgr#nxt_cscheme_var(delta) dict
   let l:current_variant = g:colors_name
-  let l:num_variants = len(self.Variants)
-  let l:next_variant = self.Variants[((a:delta+index(self.variants, l:current_variant)) % l:num_variants + l:num_variants) % l:num_variants]
+  let l:num_variants = len(self.variants)
+  let l:next_variant = self.variants[((a:delta+index(self.variants, l:current_variant)) % l:num_variants + l:num_variants) % l:num_variants]
   exec 'colors ' . l:next_variant
 endfunction
 
-function! theme_manager#NextColorschemeVariantMap(delta) dict
-  let l:variant_list = copy(self.Variants)
+function! mgr#nxt_cscheme_var_mp(delta) dict
+  let l:variant_list = copy(self.variants)
   call map(l:variant_list, function(self.Map))
   let l:current_variant = g:colors_name
   let l:num_variants = len(l:variant_list)
@@ -14,85 +14,85 @@ function! theme_manager#NextColorschemeVariantMap(delta) dict
   exec 'colors ' . l:next_variant
 endfunction
 
-function! theme_manager#NextStyleVariant(delta) dict
-  let l:num_variants = len(self.Variants)
-  exec 'let ' . self.StyleVariable . ' = self.Variants[((a:delta+index(self.variants, ' . self.StyleVariable . ')) % l:num_variants + l:num_variants) % l:num_variants]'
+function! mgr#nxt_styl_var(delta) dict
+  let l:num_variants = len(self.variants)
+  exec 'let ' . self.style_variable . ' = self.variants[((a:delta+index(self.variants, ' . self.style_variable . ')) % l:num_variants + l:num_variants) % l:num_variants]'
   exec 'colors ' . g:colors_name
 endfunction
 
-function! theme_manager#NextStyleBackgroundVariant(delta) dict
-  let l:num_variants = len(self.Variants)
-  exec 'let ' . self.StyleVariable . '_' . &background . ' = self.Variants[((a:delta+index(self.variants, ' . self.StyleVariable . '_' . &background . ')) % l:num_variants + l:num_variants) % l:num_variants]'
+function! mgr#nxt_styl_bg_var(delta) dict
+  let l:num_variants = len(self.variants)
+  exec 'let ' . self.style_variable . '_' . &background . ' = self.variants[((a:delta+index(self.variants, ' . self.style_variable . '_' . &background . ')) % l:num_variants + l:num_variants) % l:num_variants]'
   exec 'colors ' . g:colors_name
 endfunction
 
-function! theme_manager#DefaultStyleVariant() dict
-  exec 'let ' . self.StyleVariable . ' = "' . self.DefaultStyle . '"'
+function! mgr#def_styl_var() dict
+  exec 'let ' . self.style_variable . ' = "' . self.default_style . '"'
 endfunction
 
-function! theme_manager#DefaultStyleBackgroundVariant() dict
-  exec 'let ' . self.StyleVariable . '_' . &background . ' = "' . self.DefaultStyle . '"'
+function! mgr#def_styl_bg_var() dict
+  exec 'let ' . self.style_variable . '_' . &background . ' = "' . self.default_style . '"'
 endfunction
 
-function! theme_manager#NextBackgroundVariant(delta) dict
+function! mgr#nxt_bg_var(delta) dict
   let &background = (&background == 'dark') ? 'light' : 'dark'
 endfunction
 
-function! theme_manager#ToggleBackground() dict
+function! mgr#tggl_bg() dict
   let &background = (&background == 'dark') ? 'light' : 'dark'
 endfunction
 
-function! theme_manager#ToggleColorscheme() dict
+function! mgr#tggl_cscheme() dict
   let l:new_colorscheme = (g:colors_name =~# 'dark') ? substitute(g:colors_name, 'dark', 'light', '') : substitute(g:colors_name, 'light', 'dark', '')
   exec 'colors ' . l:new_colorscheme
 endfunction
 
-function! theme_manager#ToggleColorschemeStyle() dict
-  exec 'let l:current_style = ' . self.StyleVariable
+function! mgr#tggl_cscheme_styl() dict
+  exec 'let l:current_style = ' . self.style_variable
   let l:current_style = (l:current_style == 'dark') ? 'light' : 'dark'
-  exec 'let ' . self.StyleVariable . " = '" . l:current_style . "'"
+  exec 'let ' . self.style_variable . " = '" . l:current_style . "'"
   exec 'colors ' . g:colors_name
 endfunction
 
-function! theme_manager#Colorscheme() dict
+function! mgr#cscheme() dict
   return g:colors_name
 endfunction
 
-function! theme_manager#ColorschemeStyle() dict
-  exec 'let l:current_style = ' . self.StyleVariable
-  return g:colors_name . g:theme_manager_slash . l:current_style
+function! mgr#cscheme_styl() dict
+  exec 'let l:current_style = ' . self.style_variable
+  return g:colors_name . g:mgr_slash . l:current_style
 endfunction
 
-function! theme_manager#ColorschemeBackgroundStyle() dict
-  exec 'let l:current_style = ' . self.StyleVariable . '_' . &background
-  return g:colors_name . g:theme_manager_slash . l:current_style
+function! mgr#cscheme_bg_styl() dict
+  exec 'let l:current_style = ' . self.style_variable . '_' . &background
+  return g:colors_name . g:mgr_slash . l:current_style
 endfunction
 
-function! theme_manager#ColorschemeBackgroundSlash() dict
-  return g:colors_name . g:theme_manager_slash . &background
+function! mgr#cscheme_bg_sl() dict
+  return g:colors_name . g:mgr_slash . &background
 endfunction
 
-function! theme_manager#ColorschemeDashtoUnderscore() dict
+function! mgr#cscheme_dsh_to_uscr() dict
   return tr(g:colors_name, '-', '_')
 endfunction
 
-function! theme_manager#ColorschemeRemoveDash() dict
+function! mgr#csheme_rm_dsh() dict
   return substitute(g:colors_name, '-', '', 'g')
 endfunction
 
-function! theme_manager#ColorschemeLower() dict
+function! mgr#cschemeLower() dict
   return tolower(g:colors_name)
 endfunction
 
-function! theme_manager#ColorschemeSuffix() dict
+function! mgr#cschemeSuffix() dict
   return g:colors_name . self.suffix
 endfunction
 
-function! theme_manager#ColorschemeBackgroundUnderscore() dict
-  return g:colors_name . g:theme_manager_underscore . &background
+function! mgr#cscheme_bg_uscr() dict
+  return g:colors_name . g:mgr_underscore . &background
 endfunction
 
-function! theme_manager#GetColorDictionary(color_name)
+function! mgr#GetColorDictionary(color_name)
   let l:color_dictionary = {}
   try
     let l:color_dictionary = g:colorscheme_map[a:color_name]
@@ -107,43 +107,43 @@ function! theme_manager#GetColorDictionary(color_name)
   return l:color_dictionary
 endfunction
 
-function! theme_manager#SchemeVariant(delta) abort
-  if has_key(g:current_color_dictionary, 'NextVariant')
-    call g:current_color_dictionary.NextVariant(a:delta)
+function! mgr#SchemeVariant(delta) abort
+  if has_key(g:current_color_dictionary, 'next_variant')
+    call g:current_color_dictionary.next_variant(a:delta)
   endif
 endfunction
 
-function! theme_manager#Toggle() abort
-  if has_key(g:current_color_dictionary, 'Toggle')
-    call g:current_color_dictionary.Toggle()
+function! mgr#Toggle() abort
+  if has_key(g:current_color_dictionary, 'toggle')
+    call g:current_color_dictionary.toggle()
   endif
 endfunction
 
-function! theme_manager#AirlineTheme()
-  if has_key (g:current_color_dictionary, 'Airline')
-    let l:airline_theme = g:current_color_dictionary.Airline()
+function! mgr#AirlineTheme()
+  if has_key (g:current_color_dictionary, 'airline')
+    let l:airline_theme = g:current_color_dictionary.airline()
   else
     let l:airline_theme = g:default_airline_theme
   endif
   exec "AirlineTheme " . l:airline_theme
 endfunction
 
-function! theme_manager#LightlineUpdate()
+function! mgr#LightlineUpdate()
   if !exists('g:loaded_lightline')
     return
   endif
   try
-    if has_key(g:current_color_dictionary, 'Lightline')
-      let l:new_lightline_colorscheme = g:current_color_dictionary.Lightline()
+    if has_key(g:current_color_dictionary, 'lightline')
+      let l:new_lightline_colorscheme = g:current_color_dictionary.lightline()
     else
       let l:new_lightline_colorscheme = g:default_lightline_colorscheme
     endif
     exe 'runtime autoload/lightline/colorscheme/' . l:new_lightline_colorscheme . '.vim'
-    call theme_manager#SetLightlineColorscheme(l:new_lightline_colorscheme)
+    call mgr#SetLightlineColorscheme(l:new_lightline_colorscheme)
   endtry
 endfunction
 
-function! theme_manager#SetLightlineColorscheme(name) abort
+function! mgr#SetLightlineColorscheme(name) abort
   let g:lightline.colorscheme = a:name
   call lightline#init()
   call lightline#colorscheme()
@@ -155,7 +155,7 @@ function! s:ColorschemeList()
   let l:theme_list = split(globpath(&runtimepath, 'colors/*.vim'), '\n')
   for l:file in l:theme_list
     let l:scheme = fnamemodify(l:file, ':t:r')
-    let l:color_dictionary = theme_manager#GetColorDictionary(l:scheme)
+    let l:color_dictionary = mgr#GetColorDictionary(l:scheme)
     if l:color_dictionary != {}
       let matches[l:scheme] = 1
     endif
@@ -178,7 +178,7 @@ function! s:SetColorscheme(new_colorscheme)
   silent exec 'doautocmd Colorscheme ' . a:new_colorscheme
 endfunction
 
-function! theme_manager#SetRandomGroupColorscheme (last_colorscheme)
+function! mgr#SetRandomGroupColorscheme (last_colorscheme)
   let l:new_colorscheme = a:last_colorscheme
   for colorscheme_group in values(g:colorscheme_groups)
     for colorscheme_group_member in colorscheme_group
@@ -191,32 +191,32 @@ function! theme_manager#SetRandomGroupColorscheme (last_colorscheme)
   call s:SetColorscheme (l:new_colorscheme)
 endfunction
 
-function! theme_manager#SetRandomColorscheme()
+function! mgr#SetRandomColorscheme()
   let l:themes = s:ColorschemeList()
   let l:new_colorscheme = l:themes[s:Random(len(l:themes))]
   call s:SetColorscheme (l:new_colorscheme)
 endfunction
 
-function! theme_manager#SetLastColorscheme()
+function! mgr#SetLastColorscheme()
   let l:last_colorscheme = readfile(expand(g:colorscheme_file))
   exec 'set background='.l:last_colorscheme[0]
-  if g:theme_manager_randomize
-    call theme_manager#SetRandomColorscheme()
-  elseif g:theme_manager_randomize_group
-    call theme_manager#SetRandomGroupColorscheme(l:last_colorscheme)
+  if g:mgr_randomize
+    call mgr#SetRandomColorscheme()
+  elseif g:mgr_randomize_group
+    call mgr#SetRandomGroupColorscheme(l:last_colorscheme)
   else
     call s:SetColorscheme(l:last_colorscheme[1])
   endif
 endfunction
 
-function! theme_manager#WhichStatus(colorscheme)
-  if has_key(g:current_color_dictionary, 'Airline')
-    let l:airlinetheme = g:current_color_dictionary.Airline()
+function! mgr#WhichStatus(colorscheme)
+  if has_key(g:current_color_dictionary, 'airline')
+    let l:airlinetheme = g:current_color_dictionary.airline()
   else
     let l:airlinetheme = ''
   endif
-  if has_key(g:current_color_dictionary, 'Lightline')
-    let l:lightlinetheme = g:current_color_dictionary.Lightline()
+  if has_key(g:current_color_dictionary, 'lightline')
+    let l:lightlinetheme = g:current_color_dictionary.lightline()
   else
     let l:lightlinetheme = ''
   endif
