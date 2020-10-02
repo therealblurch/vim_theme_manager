@@ -1,3 +1,45 @@
+let s:themes = {}
+let s:theme = {}
+let s:theme_defaults = {'status': function('mgr#csheme)')}
+
+function! mgr#new() abort
+  return s:themes.new()
+endfunction
+
+function! s:themes.new() abort
+  let l:instance = copy(self)
+  return l:instance
+endfunction
+
+function! s:get_theme(color_name)
+  let l:color_dictionary = {}
+  try
+    let l:color_dictionary = self[a:color_name]
+  catch /^Vim\%((\a\+)\)\=:E716:/ " catch error E716
+    for color in keys(self)
+      if a:color_name =~ color
+        let l:color_dictionary = self[color]
+        break
+      endif
+    endfor
+  endtry
+  return l:color_dictionary
+endfunction
+
+function! s:themes.add(name, opts) abort
+  let l:theme = mgr#new_theme(a:name, a:opts)
+  let self[l:plugin.name] = l:plugin
+endfunction
+
+function!mgr#new_theme(name, opts) abort
+  return s:theme.new(a:name, a:opts)
+endfunction
+
+function s:theme.new(name, opts) abort
+  let l:instance = extend(copy(self), extend(copy(get(a:opts, 0, {})), s:theme_defaults, 'keep'))
+  return l:instance
+endfunction
+
 function! mgr#nxt_cscheme_var(delta) dict
   let l:current_variant = g:colors_name
   let l:num_variants = len(self.variants)
@@ -90,21 +132,6 @@ endfunction
 
 function! mgr#cscheme_bg_uscr() dict
   return g:colors_name . g:mgr_underscore . &background
-endfunction
-
-function! mgr#GetColorDictionary(color_name)
-  let l:color_dictionary = {}
-  try
-    let l:color_dictionary = g:colorscheme_map[a:color_name]
-  catch /^Vim\%((\a\+)\)\=:E716:/ " catch error E716
-    for color in keys(g:colorscheme_map)
-      if a:color_name =~ color
-        let l:color_dictionary = g:colorscheme_map[color]
-        break
-      endif
-    endfor
-  endtry
-  return l:color_dictionary
 endfunction
 
 function! mgr#SchemeVariant(delta) abort

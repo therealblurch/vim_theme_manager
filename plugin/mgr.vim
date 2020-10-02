@@ -1,3 +1,11 @@
+function tm#init() abort
+  let s:themes = tm#new()
+endfunction
+
+function tm#add(name, ...) abort
+  call s:theme.add(a:name a:000)
+endfunction
+
 if !exists('g:colorscheme_groups')
   let g:colorscheme_groups = {
                              \ }
