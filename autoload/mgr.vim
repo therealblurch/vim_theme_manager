@@ -15,7 +15,7 @@ endfunction
 
 function! mgr#nxt_cscheme_var_mp(delta) dict
   let l:variant_list = copy(self.variants)
-  call map(l:variant_list, function(self.Map))
+  call map(l:variant_list, function(self.map))
   let l:current_variant = g:colors_name
   let l:num_variants = len(l:variant_list)
   let l:next_variant = l:variant_list[((a:delta+index(l:variant_list, l:current_variant)) % l:num_variants + l:num_variants) % l:num_variants]
