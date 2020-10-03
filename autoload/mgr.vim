@@ -1,3 +1,11 @@
+function mgr#init() abort
+  let g:colorscheme_map = {}
+endfunction
+
+function! mgr#add (name, opts) abort
+  let g:colorscheme_map[a:name] = extend (a:opts, {'status': function('mgr#cscheme')}, 'keep')
+endfunction
+
 function! mgr#nxt_cscheme_var(delta) dict
   let l:current_variant = g:colors_name
   let l:num_variants = len(self.variants)
