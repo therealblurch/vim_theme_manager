@@ -47,7 +47,7 @@ augroup ColorschemeSetup
     autocmd ColorschemePre Atelier*Light set background=light
     autocmd ColorschemePre vimspectr*dark set background=dark
     autocmd ColorschemePre vimspectr*light set background=light
-    autocmd ColorSchemePre * let g:current_color_dictionary = mgr#GetColorDictionary(expand('<amatch>'))
+    autocmd ColorSchemePre * let g:current_color_dictionary = mgr#get_color_dict(expand('<amatch>'))
                          \ | if has_key (g:current_color_dictionary, 'default_variant')
                          \ |   if !exists('g:colors_name') || g:colors_name != expand('<amatch>')
                          \ |     call g:current_color_dictionary.default_variant()
@@ -64,28 +64,28 @@ augroup END
 augroup StatusBarTheme
   autocmd!
   autocmd Colorscheme * call writefile([&background, expand('<amatch>')], expand(g:colorscheme_file))
-                    \ | if mgr#WhichStatus(expand('<amatch>')) == "airline"
+                    \ | if mgr#which_status(expand('<amatch>')) == "airline"
                     \ |   packadd vim-airline
                     \ |   packadd vim-airline-themes
                     \ |   let g:airline_section_x = airline#section#create_right(['%-25{g:current_color_dictionary.status()}', 'bookmark', 'tagbar', 'vista', 'gutentags', 'grepper', 'filetype'])
-                    \ |   call mgr#AirlineTheme()
+                    \ |   call mgr#airline_theme()
                     \ | endif
-                    \ | if mgr#WhichStatus(expand('<amatch>')) == "lightline"
+                    \ | if mgr#which_status(expand('<amatch>')) == "lightline"
                     \ |   packadd lightline.vim | packadd lightline-buffer
                     \ |   packadd lightline_foobar.vim
-                    \ |   call mgr#LightlineUpdate()
+                    \ |   call mgr#lightline_updt()
                     \ | endif
-                    \ | if mgr#WhichStatus(expand('<amatch>')) == "none" && exists('g:loaded_lightline')
-                    \ |   call mgr#LightlineUpdate()
+                    \ | if mgr#which_status(expand('<amatch>')) == "none" && exists('g:loaded_lightline')
+                    \ |   call mgr#lightline_updt()
                     \ | endif
-                    \ | if mgr#WhichStatus(expand('<amatch>')) == "none" && exists('g:loaded_airline')
-                    \ |   call mgr#AirlineTheme()
+                    \ | if mgr#which_status(expand('<amatch>')) == "none" && exists('g:loaded_airline')
+                    \ |   call mgr#airline_theme()
                     \ | endif
 augroup END
 
-autocmd! VimEnter * call mgr#SetLastColorscheme()
+autocmd! VimEnter * call mgr#set_last_cscheme()
 
-nmap <silent> <leader>- :<c-u>call mgr#SchemeVariant(-v:count1)<cr>
-nmap <silent> <leader>+ :<c-u>call mgr#SchemeVariant(+v:count1)<cr>
-nmap <silent> <leader>b :<c-u>call mgr#Toggle()<cr>
-nmap <silent> <leader>r :<c-u>call mgr#SetRandomColorscheme()<cr>
+nmap <silent> <leader>- :<c-u>call mgr#scheme_var(-v:count1)<cr>
+nmap <silent> <leader>+ :<c-u>call mgr#scheme_var(+v:count1)<cr>
+nmap <silent> <leader>b :<c-u>call mgr#tggl()<cr>
+nmap <silent> <leader>r :<c-u>call mgr#set_rand_csheme()<cr>

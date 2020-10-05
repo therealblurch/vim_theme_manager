@@ -88,7 +88,7 @@ function! mgr#csheme_rm_dsh() dict
   return substitute(g:colors_name, '-', '', 'g')
 endfunction
 
-function! mgr#cschemeLower() dict
+function! mgr#cscheme_lwr() dict
   return tolower(g:colors_name)
 endfunction
 
@@ -100,7 +100,7 @@ function! mgr#cscheme_bg_uscr() dict
   return g:colors_name . g:mgr_underscore . &background
 endfunction
 
-function! mgr#GetColorDictionary(color_name)
+function! mgr#get_color_dict(color_name)
   let l:color_dictionary = {}
   try
     let l:color_dictionary = g:colorscheme_map[a:color_name]
@@ -115,19 +115,19 @@ function! mgr#GetColorDictionary(color_name)
   return l:color_dictionary
 endfunction
 
-function! mgr#SchemeVariant(delta) abort
+function! mgr#scheme_var(delta) abort
   if has_key(g:current_color_dictionary, 'next_variant')
     call g:current_color_dictionary.next_variant(a:delta)
   endif
 endfunction
 
-function! mgr#Toggle() abort
+function! mgr#tggl() abort
   if has_key(g:current_color_dictionary, 'toggle')
     call g:current_color_dictionary.toggle()
   endif
 endfunction
 
-function! mgr#AirlineTheme()
+function! mgr#airline_theme()
   if has_key (g:current_color_dictionary, 'airline')
     let l:airline_theme = g:current_color_dictionary.airline()
   else
@@ -136,7 +136,7 @@ function! mgr#AirlineTheme()
   exec "AirlineTheme " . l:airline_theme
 endfunction
 
-function! mgr#LightlineUpdate()
+function! mgr#lightline_updt()
   if !exists('g:loaded_lightline')
     return
   endif
@@ -147,23 +147,23 @@ function! mgr#LightlineUpdate()
       let l:new_lightline_colorscheme = g:default_lightline_colorscheme
     endif
     exe 'runtime autoload/lightline/colorscheme/' . l:new_lightline_colorscheme . '.vim'
-    call mgr#SetLightlineColorscheme(l:new_lightline_colorscheme)
+    call s:set_lightline_cscheme(l:new_lightline_colorscheme)
   endtry
 endfunction
 
-function! mgr#SetLightlineColorscheme(name) abort
+function! s:set_lightline_cscheme(name) abort
   let g:lightline.colorscheme = a:name
   call lightline#init()
   call lightline#colorscheme()
   call lightline#update()
 endfunction
 
-function! s:ColorschemeList()
+function! s:cscheme_list()
   let matches = {}
   let l:theme_list = split(globpath(&runtimepath, 'colors/*.vim'), '\n')
   for l:file in l:theme_list
     let l:scheme = fnamemodify(l:file, ':t:r')
-    let l:color_dictionary = mgr#GetColorDictionary(l:scheme)
+    let l:color_dictionary = mgr#get_color_dict(l:scheme)
     if l:color_dictionary != {}
       let matches[l:scheme] = 1
     endif
@@ -171,13 +171,13 @@ function! s:ColorschemeList()
   return sort(keys(matches), 1)
 endfunction
 
-function! s:Random(number)
+function! s:random_no(number)
   let l:time = split(reltimestr(reltime()), '\.')
   let l:ms = l:time[-1] + 0
   return l:ms % a:number
 endfunction
 
-function! s:SetColorscheme(new_colorscheme)
+function! s:set_cscheme(new_colorscheme)
   if has('patch-8.0.1777')
     silent exec 'doautocmd ColorschemePre ' . a:new_colorscheme
   endif
@@ -186,38 +186,38 @@ function! s:SetColorscheme(new_colorscheme)
   silent exec 'doautocmd Colorscheme ' . a:new_colorscheme
 endfunction
 
-function! mgr#SetRandomGroupColorscheme (last_colorscheme)
+function! mgr#set_rand_grp_cscheme (last_colorscheme)
   let l:new_colorscheme = a:last_colorscheme
   for colorscheme_group in values(g:colorscheme_groups)
     for colorscheme_group_member in colorscheme_group
       if a:last_colorscheme == colorscheme_group_member
-        let l:new_colorscheme = colorscheme_group[s:Random(len(colorscheme_group))]
+        let l:new_colorscheme = colorscheme_group[s:random_no(len(colorscheme_group))]
         break
       endif
     endfor
   endfor
-  call s:SetColorscheme (l:new_colorscheme)
+  call s:set_cscheme (l:new_colorscheme)
 endfunction
 
-function! mgr#SetRandomColorscheme()
-  let l:themes = s:ColorschemeList()
-  let l:new_colorscheme = l:themes[s:Random(len(l:themes))]
-  call s:SetColorscheme (l:new_colorscheme)
+function! mgr#set_rand_csheme()
+  let l:themes = s:cscheme_list()
+  let l:new_colorscheme = l:themes[s:random_no(len(l:themes))]
+  call s:set_cscheme (l:new_colorscheme)
 endfunction
 
-function! mgr#SetLastColorscheme()
+function! mgr#set_last_cscheme()
   let l:last_colorscheme = readfile(expand(g:colorscheme_file))
   exec 'set background='.l:last_colorscheme[0]
   if g:mgr_randomize
-    call mgr#SetRandomColorscheme()
+    call mgr#set_rand_csheme()
   elseif g:mgr_randomize_group
-    call mgr#SetRandomGroupColorscheme(l:last_colorscheme)
+    call mgr#set_rand_grp_cscheme(l:last_colorscheme)
   else
-    call s:SetColorscheme(l:last_colorscheme[1])
+    call s:set_cscheme(l:last_colorscheme[1])
   endif
 endfunction
 
-function! mgr#WhichStatus(colorscheme)
+function! mgr#which_status(colorscheme)
   if has_key(g:current_color_dictionary, 'airline')
     let l:airlinetheme = g:current_color_dictionary.airline()
   else
