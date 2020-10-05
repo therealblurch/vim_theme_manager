@@ -211,7 +211,7 @@ function! mgr#set_last_cscheme()
   if g:mgr_randomize
     call mgr#set_rand_csheme()
   elseif g:mgr_randomize_group
-    call mgr#set_rand_grp_cscheme(l:last_colorscheme)
+    call mgr#set_rand_grp_cscheme(l:last_colorscheme[1])
   else
     call s:set_cscheme(l:last_colorscheme[1])
   endif
