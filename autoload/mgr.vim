@@ -131,6 +131,23 @@ function! mgr#get_color_dict(color_name)
   return l:color_dictionary
 endfunction
 
+function! mgr#get_color_dict_key(color_name)
+  let l:color_key = ''
+  let l:color_dictionary = {}
+  try
+     let l:color_dictionary = g:colorscheme_map[a:color_name]
+     let l:color_key = a:color_name
+  catch /^Vim\%((\a\+)\)\=:E716:/ " catch error E716
+    for color in keys(g:colorscheme_map)
+      if a:color_name =~ color
+        let l:color_key = color
+        break
+      endif
+    endfor
+  endtry
+  return l:color_key
+endfunction
+
 function! mgr#scheme_var(delta) abort
   if has_key(g:current_color_dictionary, 'next_variant')
     call g:current_color_dictionary.next_variant(a:delta)
