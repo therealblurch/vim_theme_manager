@@ -223,7 +223,7 @@ function! mgr#set_rand_grp_cscheme (last_colorscheme)
   let l:new_colorscheme = a:last_colorscheme
   for colorscheme_group in values(g:colorscheme_groups)
     for colorscheme_group_member in colorscheme_group
-      if a:last_colorscheme == colorscheme_group_member
+      if a:last_colorscheme =~ colorscheme_group_member
         let l:new_colorscheme = colorscheme_group[s:random_no(len(colorscheme_group))]
         break
       endif
