@@ -6,6 +6,22 @@ function! mgr#add (name, opts) abort
   let g:colorscheme_map[a:name] = extend (a:opts, {'status': function('mgr#cscheme')}, 'keep')
 endfunction
 
+function mgr#init_groups() abort
+  let g:colorscheme_groups = {}
+endfunction
+
+function mgr#init_group() abort
+  let s:colorscheme_group = []
+endfunction
+
+function mgr#add_cscheme(name) abort
+  call extend (s:colorscheme_group, [a:name])
+endfunction
+
+function mgr#add_group(name)
+  let g:colorscheme_groups[a:name] = deepcopy(s:colorscheme_group)
+endfunction
+
 function! mgr#nxt_cscheme_var(delta) dict
   let l:current_variant = g:colors_name
   let l:num_variants = len(self.variants)
