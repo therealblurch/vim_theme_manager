@@ -207,13 +207,14 @@ endfunction
 
 function! mgr#set_last_cscheme()
   let l:last_colorscheme = readfile(expand(g:colorscheme_file))
-  exec 'set background='.l:last_colorscheme[0]
+  let [l:background, l:colorscheme] = l:last_colorscheme
+  exec 'set background='.l:background
   if g:mgr_randomize
     call mgr#set_rand_csheme()
   elseif g:mgr_randomize_group
-    call mgr#set_rand_grp_cscheme(l:last_colorscheme[1])
+    call mgr#set_rand_grp_cscheme(l:colorscheme)
   else
-    call s:set_cscheme(l:last_colorscheme[1])
+    call s:set_cscheme(l:colorscheme)
   endif
 endfunction
 
