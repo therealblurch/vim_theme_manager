@@ -21,7 +21,106 @@ Theme manager adds the following capabilities:
   exist.
 
 This plugin needs to be configured for the available colorschemes in the vim
-installation by defining |g:colorscheme_map| in .vimrc.
+installation with the following function calls:
+
+*mgr#init()*
+
+This function initializes the variables the plugin uses.
+
+*mgr#add(name, opts)*
+
+This function adds information about a colorscheme.  This function requires
+the following parameters:
+
+'name': the name of the colorscheme.  This needs to match the colorscheme
+name used to set the colorscheme with the :colorscheme command.
+
+'opt': A dictionary of options for the colorscheme.  This dictionary may any
+of the following keys:
+
+  variants: A list of variants of the colorscheme.
+
+  pre: A list of commands to run before setting the colorscheme.  This
+    is intended to set configuration variables for the colorscheme.
+
+  next_variant: A funcref to a dictionary function that will switch to a the next
+    colorscheme variant in the variants list.
+
+  default_variant: A funcref to a dictionary function that will set the defaul
+    colorscheme style.
+
+  status: A funcref to a dictionary function that will return the
+    colorscheme name and variant for use in the status line.  Defaults to
+    mgr#cscheme.
+
+  lightline: A funcref to a dictionary function that will return the name
+    of the lightline theme for the colorscheme.
+
+  airline: A funcref to a dictionary function that will return the name of
+    the airline theme for the colorscheme.
+
+  toggle: A funcref to a dictionary function that will toggle between dark
+    and light versions of a colorscheme.
+
+  map: A funcref to a dictionary function that is referenced in the
+    |mgr#nxt_cscheme_var_mp()| function.
+
+  style_variable: The name of the variable used to set the colorschem
+    style.  This is used by the |mgr#nxt_styl_var()| and
+    |mgr#tggl_cscheme_styl()| functions.
+
+  default_style: The users preferred style for the colorscheme.  Used by
+    |mgr#def_styl_var()| and
+    |mgr#def_styl_bg_var()| functions.
+
+A number of built in dictionary functions are available for use in the above
+keys.  For a list of all available functions see |mgr-dictionary-functions|.
+
+For example, to add configuration for the ayu colorscheme the following code
+would be used:
+
+  call mgr#init()
+  call mgr#add('ayu', {
+             \ 'variants'       : ['light', 'dark', 'mirage'],
+             \ 'style_variable' : 'g:ayucolor',
+             \ 'default_style'  : 'light',
+             \ 'next_variant'   : function('mgr#nxt_styl_var'),
+             \ 'default_variant': function('mgr#def_styl_var'),
+             \ 'status'         : function('mgr#cscheme_styl'),
+             \ 'lightline'      : function('mgr#cscheme'),
+             \ 'airline'        : function('mgr#cscheme'),
+             \ 'toggle'         : function('mgr#tggl_cscheme_styl')
+             \ })
+
+Colorschemes can also be grouped so that a random colorscheme can be selected
+from a colorscheme that belongs to the same group as the current colorscheme.
+Groups are created with the following functions:
+
+*mgr#init_groups()*
+
+This function initializes the dictionary that holds all colorscheme groups.
+
+*mgr#init_group()*
+
+This function initializes a colorscheme group.
+
+*mgr#add_cscheme(name)*
+
+This function adds a colorscheme to a group.
+
+*mgr#add_group(name)*
+
+This function add the current group to colorscheme groups.
+
+For example, to create a group of the seabird themes you would use the
+following code:
+
+  call mgr#init_group()
+  call mgr#add_cscheme('greygull')
+  call mgr#add_cscheme('petrel')
+  call mgr#add_cscheme('seagull')
+  call mgr#add_cscheme('stormpetrel')
+  call mgr#add_group('seabird_themes')
 
 ================================================================================
 KEYMAPS
@@ -32,66 +131,7 @@ KEYMAPS
 <leader>r          Load random colorscheme.
 
 ================================================================================
-OPTIONS                                                    *theme_manager-options*
-
-                                                              *g:colorscheme_map*
-
-A dictionary of dictionaries that contain information for each colorscheme.  Each
-dictionary must have a 'Status' key.  All other keys are optional.
-Possible keys are:
-
-  variants: A list of variants of the colorscheme.
-
-  Pre: A list of commands to run before setting the colorscheme.  This
-    is intended to set configuration variables for the colorscheme.
-
-  NextVariant: A funcref to a dictionary function that will switch to a the next
-    colorscheme variant in the variants list.
-
-  DefaultVariant: A funcref to a dictionary function that will set the defaul
-    colorscheme style.
-
-  Status: A funcref to a dictionary function that will return the
-    colorscheme name and variant for use in the status line.
-
-  Lightline: A funcref to a dictionary function that will return the name
-    of the lightline theme for the colorscheme.
-
-  Airline: A funcref to a dictionary function that will return the name of
-    the airline theme for the colorscheme.
-
-  Toggle: A funcref to a dictionary function that will toggle between dark
-    and light versions of a colorscheme.
-
-  Map: A funcref to a dictionary function that is referenced in the
-    |theme_manager#NextColorschemeVariantMap()| function.
-
-  StyleVariable: The name of the variable used to set the colorschem
-    style.  This is used by the |theme_manager#NextStyleVariant()| and
-    |theme_manager#ToggleColorschemeStyle()| functions.
-
-  DefaultStyle: The users preferred style for the colorscheme.  Used by
-    |theme_manager#DefaultStyleVariant()| and
-    |theme_manager#DefaultStyleBackgroundVariant()| functions.
-
-For example, the dictionary for the ayu colorscheme could look like this:
-
-  let g:colorscheme_map = {
-                          \ 'ayu': {
-                          \   'variants'       : ['light', 'dark', 'mirage'],
-                          \   'StyleVariable'  : 'g:ayucolor',
-                          \   'DefaultStyle'   : 'light',
-                          \   'NextVariant'    : function('theme_manager#NextStyleVariant'),
-                          \   'DefaultVariant' : function('theme_manager#DefaultStyleVariant'),
-                          \   'Status'         : function('theme_manager#ColorschemeStyle'),
-                          \   'Lightline'      : function('theme_manager#Colorscheme'),
-                          \   'Airline'        : function('theme_manager#Colorscheme'),
-                          \   'Toggle'         : function('theme_manager#ToggleColorschemeStyle'),
-                          \ },
-                          \ }
-
-A number of built in dictionary functions are available for use in the above
-keys.  For a list of all available functions see |theme_manager-dictionary-functions|.
+OPTIONS                                                    *mgr-options*
 
                                                                *g:prefer_airline*
 
@@ -122,131 +162,118 @@ lightline colorscheme.  Default:
 
 The path to the file used to store the last colorscheme and background.
 
-                                                          *g:theme_manager_slash*
+                                                          *g:mgr_slash*
 
-The character to use as a separator in |theme_manager#ColorschemeStyle()|,
+The character to use as a separator in |mgr#ColorschemeStyle()|,
 |theme_manger#ColorschemeBackgroundStyle()|, and
-|theme_manager#ColorschemeBackgroundSlash()|.  Defaults to '/'.
+|mgr#cscheme_bg_sl()|.  Defaults to '/'.
 
-  let g:theme_manager_slash = '/'
+  let g:mgr_slash = '/'
 
-                                                     *g:theme_manager_underscore*
+                                                     *g:mgr_underscore*
 
 The character to use as a separator in
-|theme_manager#ColorschemeBackgroundUnderscore()|.  Defaults to '_'.
+|mgr#cscheme_bg_uscr()|.  Defaults to '_'.
 
-  let g:theme_manager_underscore = '_'
+  let g:mgr_underscore = '_'
 
-                                                      *g:theme_manager_randomize*
+                                                      *g:mgr_randomize*
 Load a random colorscheme from g:colorscheme_map instead of loading the last
 colorscheme.
 
-                                                           *g:colorscheme_groups*
-
-This variable is a dictionary of lists of related colorschemes.  On startup, if
-the last colorscheme used is a member of one of the lists, then theme_manager
-will randomly choose a colorscheme from the list.  Each dictionary key is a
-unique name for that list:
-
-  let g:colorscheme_groups = {
-                             \  'seabird_themes' : [
-                             \                       'greygull',
-                             \                       'petrel',
-                             \                       'seagull',
-                             \                       'stormpetrel'
-                             \                     ],
-                             \ }
+                                                *g:mgr_randomize_group*
+Load a random colorscheme from the group the last colorscheme belonged to.
 
 ================================================================================
 BUILT-IN DICTIONARY FUNCTIONS
 
-*theme_manager#NextColorschemeVariant()*
+*mgr#nxt_cscheme_var()*
 
 The list of variants for the colorscheme is created using the 'variants' key in
 the colorscheme dictionary.  This function changes the colorscheme to the next
 colorscheme in the variant list.
 
-*theme_manager#NextColorschemeVariantMap()*
+*mgr#nxt_cscheme_var_mp()*
 
 The list of variants for the colorscheme is created by using the 'variants' key
 in the dictionary as processed through the Map function.  This function changed
 the colorscheme to the next colorscheme in the variant list.
 
-*theme_manager#NextStyleVariant()*
+*mgr#nxt_styl_var()*
 
 The list of variants for the colorscheme is created using the 'variants' key in
 the colorscheme dictionary.  This function sets the style variable referenced in
-the 'StyleVariable' key to the next variant in the list.
+the 'style_variable' key to the next variant in the list.
 
-*theme_manager#NextStyleBackgroundVariant()*
+*mgr#nxt_styl_bg_var()*
 
 The list of variants for the colorscheme is created using the 'variants' key in
 the colorscheme dictionary.  This function appends the current background to the
-'StyleVariable' and sets the style variant variable to the next variant in
+'style_variable' and sets the style variant variable to the next variant in
 the list.
 
-*theme_manager#DefaultStyleVariant()*
+*mgr#def_styl_var()*
 
-Sets the style variant variable in 'StyleVariable' to the value in the
+Sets the style variant variable in 'style_variable' to the value in the
 'DefaultStyle' key.
 
-*theme_manager#DefaultStyleBackgroundVariant()*
+*mgr#def_styl_bg_var()*
 
-Sets the style variant variable in 'StyleVariable' appended to the current
+Sets the style variant variable in 'style_variable' appended to the current
 background to the value in the 'DefaultStyle' key.
 
-*theme_manager#NextBackgroundVariant()*
+*mgr#nxt_bg_var()*
 
 Switches to the next colorscheme variant by toggling the background.
 
-*theme_manager#ToggleBackground()*
+*mgr#tggl_bg()*
 
 Toggles the background.
 
-*theme_manager#ToggleColorscheme()*
+*mgr#tggl_cscheme()*
 
 Changes the background by loading the light or dark version of the colorscheme.
 
-*theme_manager#ToggleColorschemeStyle()*
+*mgr#tggl_cscheme_styl()*
 
 Changes the background by changing the style variable.
 
-*theme_manager#Colorscheme()*
+*mgr#cscheme()*
 
 Returns the name of the colorscheme.
 
-*theme_manager#ColorschemeStyle()*
+*mgr#cscheme_styl()*
 
 Returns the name of the colorscheme appended with the value of the style
 variable.  The separator between the colorscheme and the style is
-|g:theme_manager_slash|.
+|g:mgr_slash|.
 
-*theme_manager#ColorsSchemeBackgroundStyle()*
+*mgr#cscheme_bg_styl()*
 
 Returns the name of the colorscheme appeneded with the value of the style
 variable.  The style variable name is appended with the current background.
-The separator between the colorscheme and the style is |g:theme_manager_slash|.
+The separator between the colorscheme and the style is |g:mgr_slash|.
 
-*theme_manager#ColorschemeBackgroundSlash()*
+*mgr#cscheme_bg_sl()*
 
 Returns the name of the colorscheme apprended with the current background.
 The separator between the colorscheme and the background is
-|g:theme_manager_slash|.
+|g:mgr_slash|.
 
-*theme_namager#ColorschemeDashtoUnderscore()*
+*theme_namager#cscheme_dsh_to_uscr()*
 
 Returns the colorscheme with all '-' characters changed to '_'.
 
-*theme_manager#ColorschemeRemoveDash()*
+*mgr#cscheme_rm_dsh()*
 
 Returns the colorscheme with all '-' characters removed.
 
-*theme_manager#ColorschemeLower()*
+*mgr#cscheme_lwr()*
 
 Returns the colorscheme name in lower case.
 
-*theme_manager#ColorschemeBackgroundUnderscore()*
+*mgr#cscheme_bg_uscr()*
 
 Returns the name of the colorscheme apprended with the current background.
 The separator between the colorscheme and the background is
-|g:theme_manager_underscore|.
+|g:mgr_underscore|.
