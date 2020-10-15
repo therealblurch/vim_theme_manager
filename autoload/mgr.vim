@@ -222,12 +222,11 @@ endfunction
 function! mgr#set_rand_grp_cscheme (last_colorscheme)
   let l:new_colorscheme = a:last_colorscheme
   for colorscheme_group in values(g:colorscheme_groups)
-    for colorscheme_group_member in colorscheme_group
-      if a:last_colorscheme =~ colorscheme_group_member
-        let l:new_colorscheme = colorscheme_group[s:random_no(len(colorscheme_group))]
-        break
-      endif
-    endfor
+    if has_key(colorscheme_group, a:last_colorscheme)
+      let s:colorschemes = sort(keys(colorscheme_group))
+      let l:new_colorscheme = s:colorschemes[s:random_no(len(s:colorschemes))]
+      break
+    endif
   endfor
   call s:set_cscheme (l:new_colorscheme)
 endfunction
