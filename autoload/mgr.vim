@@ -231,7 +231,7 @@ function! mgr#set_rand_grp_cscheme (last_colorscheme)
   call s:set_cscheme (l:new_colorscheme)
 endfunction
 
-function! mgr#set_rand_csheme()
+function! mgr#set_rand_cscheme()
   let l:themes = s:cscheme_list()
   let l:new_colorscheme = l:themes[s:random_no(len(l:themes))]
   call s:set_cscheme (l:new_colorscheme)

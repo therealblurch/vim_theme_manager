@@ -1,3 +1,8 @@
+if exists('g:loaded_mgr')
+  finish
+endif
+let g:loaded_mgr = 1
+
 if !exists('g:colorscheme_groups')
   let g:colorscheme_groups = {
                              \ }
@@ -39,6 +44,58 @@ endif
 if !exists('g:mgr_randomize_group')
   let g:mgr_randomize_group = 0
 endif
+
+if !hasmapto('<Plug>PrevVar')
+  map <unique> <leader>- <Plug>PrevVar
+endif
+
+if !hasmapto('<Plug>NextVar')
+  map <unique> <leader>+ <Plug>NextVar
+endif
+
+if !hasmapto('<Plug>Toggle')
+  map <unique> <leader>b <Plug>Toggle
+endif
+
+if !hasmapto('<Plug>RandomScheme')
+  map <unique> <leader>r <Plug>RandomScheme
+endif
+
+if !hasmapto('<Plug>RandomGroupScheme')
+  map <unique> <leader>p <Plug>RandomGroupScheme
+endif
+
+noremap <unique> <script> <Plug>PrevVar <SID>Previous
+noremap <unique> <script> <Plug>NextVar <SID>Next
+noremap <unique> <script> <Plug>Toggle <SID>Toggle
+noremap <unique> <script> <Plug>RandomScheme <SID>Random
+noremap <unique> <script> <Plug>RandomGroupScheme <SID>RandomGroup
+
+noremap <silent> <SID>Previous :call <SID>Previous(-v:count1)<cr>
+noremap <silent> <SID>Next :call <SID>Next(-v:count1)<cr>
+noremap <silent> <SID>Toggle :call <SID>Toggle()<cr>
+noremap <silent> <SID>Random :call <SID>Random()<cr>
+noremap <silent> <SID>RandomGroup :call<SID>RandomGroup(g:colors_name)<cr>
+
+function s:Previous(count)
+  call mgr#scheme_var(a:count)
+endfunction
+
+function s:Next(count)
+  call mgr#scheme_var(a:count)
+endfunction
+
+function s:Toggle()
+  call mgr#tggl()
+endfunction
+
+function s:Random()
+  call mgr#set_rand_cscheme()
+endfunction
+
+function s:RandomGroup(last_cscheme)
+  call mgr#set_rand_grp_cscheme(a:last_cscheme)
+endfunction
 
 augroup ColorschemeSetup
   autocmd!
@@ -85,8 +142,3 @@ augroup END
 
 autocmd! VimEnter * call mgr#set_last_cscheme()
 
-nmap <silent> <leader>- :<c-u>call mgr#scheme_var(-v:count1)<cr>
-nmap <silent> <leader>+ :<c-u>call mgr#scheme_var(+v:count1)<cr>
-nmap <silent> <leader>b :<c-u>call mgr#tggl()<cr>
-nmap <silent> <leader>r :<c-u>call mgr#set_rand_csheme()<cr>
-nmap <silent> <leader>p :<c-u>call mgr#set_rand_grp_cscheme(g:colors_name)<cr>
