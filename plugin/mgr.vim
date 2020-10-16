@@ -89,3 +89,4 @@ nmap <silent> <leader>- :<c-u>call mgr#scheme_var(-v:count1)<cr>
 nmap <silent> <leader>+ :<c-u>call mgr#scheme_var(+v:count1)<cr>
 nmap <silent> <leader>b :<c-u>call mgr#tggl()<cr>
 nmap <silent> <leader>r :<c-u>call mgr#set_rand_csheme()<cr>
+nmap <silent> <leader>p :<c-u>call mgr#set_rand_grp_cscheme(g:colors_name)<cr>
