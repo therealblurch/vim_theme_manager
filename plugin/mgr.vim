@@ -53,8 +53,8 @@ if !hasmapto('<Plug>NextVariant')
   map <unique> <leader>+ <Plug>NextVariant
 endif
 
-if !hasmapto('<Plug>Toggle')
-  map <unique> <leader>b <Plug>Toggle
+if !hasmapto('<Plug>ToggleBackground')
+  map <unique> <leader>b <Plug>ToggleBackground
 endif
 
 if !hasmapto('<Plug>RandomScheme')
@@ -65,35 +65,35 @@ if !hasmapto('<Plug>RandomGroupScheme')
   map <unique> <leader>p <Plug>RandomGroupScheme
 endif
 
-noremap <unique> <script> <Plug>PreviousVariant <SID>Previous
-noremap <unique> <script> <Plug>NextVariant <SID>Next
-noremap <unique> <script> <Plug>Toggle <SID>Toggle
-noremap <unique> <script> <Plug>RandomScheme <SID>Random
-noremap <unique> <script> <Plug>RandomGroupScheme <SID>RandomGroup
+noremap <unique> <script> <Plug>PreviousVariant <SID>PreviousVariant
+noremap <unique> <script> <Plug>NextVariant <SID>NextVariant
+noremap <unique> <script> <Plug>ToggleBackground <SID>ToggleBackground
+noremap <unique> <script> <Plug>RandomScheme <SID>RandomScheme
+noremap <unique> <script> <Plug>RandomGroupScheme <SID>RandomGroupScheme
 
-noremap <silent> <SID>Previous :call <SID>Previous(-v:count1)<cr>
-noremap <silent> <SID>Next :call <SID>Next(-v:count1)<cr>
-noremap <silent> <SID>Toggle :call <SID>Toggle()<cr>
-noremap <silent> <SID>Random :call <SID>Random()<cr>
-noremap <silent> <SID>RandomGroup :call<SID>RandomGroup(g:colors_name)<cr>
+noremap <silent> <SID>PreviousVariant :call <SID>PreviousVariant(-v:count1)<cr>
+noremap <silent> <SID>NextVariant :call <SID>NextVariant(-v:count1)<cr>
+noremap <silent> <SID>ToggleBackground :call <SID>ToggleBackground()<cr>
+noremap <silent> <SID>RandomScheme :call <SID>RandomScheme()<cr>
+noremap <silent> <SID>RandomGroupScheme :call<SID>RandomGroupScheme(g:colors_name)<cr>
 
-function s:Previous(count)
+function s:PreviousVariant(count)
   call mgr#scheme_var(a:count)
 endfunction
 
-function s:Next(count)
+function s:NextVariant(count)
   call mgr#scheme_var(a:count)
 endfunction
 
-function s:Toggle()
+function s:ToggleBackground()
   call mgr#tggl()
 endfunction
 
-function s:Random()
+function s:RandomScheme()
   call mgr#set_rand_cscheme()
 endfunction
 
-function s:RandomGroup(last_cscheme)
+function s:RandomGroupScheme(last_cscheme)
   call mgr#set_rand_grp_cscheme(a:last_cscheme)
 endfunction
 
