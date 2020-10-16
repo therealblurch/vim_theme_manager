@@ -11,11 +11,11 @@ function mgr#init_groups() abort
 endfunction
 
 function mgr#init_group() abort
-  let s:colorscheme_group = []
+  let s:colorscheme_group = {}
 endfunction
 
 function mgr#add_cscheme(name) abort
-  call extend (s:colorscheme_group, [a:name])
+  let s:colorscheme_group[a:name] = 1
 endfunction
 
 function mgr#add_group(name)
