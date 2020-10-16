@@ -45,12 +45,12 @@ if !exists('g:mgr_randomize_group')
   let g:mgr_randomize_group = 0
 endif
 
-if !hasmapto('<Plug>PrevVar')
-  map <unique> <leader>- <Plug>PrevVar
+if !hasmapto('<Plug>PreviousVariant')
+  map <unique> <leader>- <Plug>PreviousVariant
 endif
 
-if !hasmapto('<Plug>NextVar')
-  map <unique> <leader>+ <Plug>NextVar
+if !hasmapto('<Plug>NextVariant')
+  map <unique> <leader>+ <Plug>NextVariant
 endif
 
 if !hasmapto('<Plug>Toggle')
@@ -65,8 +65,8 @@ if !hasmapto('<Plug>RandomGroupScheme')
   map <unique> <leader>p <Plug>RandomGroupScheme
 endif
 
-noremap <unique> <script> <Plug>PrevVar <SID>Previous
-noremap <unique> <script> <Plug>NextVar <SID>Next
+noremap <unique> <script> <Plug>PreviousVariant <SID>Previous
+noremap <unique> <script> <Plug>NextVariant <SID>Next
 noremap <unique> <script> <Plug>Toggle <SID>Toggle
 noremap <unique> <script> <Plug>RandomScheme <SID>Random
 noremap <unique> <script> <Plug>RandomGroupScheme <SID>RandomGroup
