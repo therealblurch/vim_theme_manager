@@ -140,5 +140,7 @@ augroup StatusBarTheme
                     \ | endif
 augroup END
 
-autocmd! VimEnter * call mgr#set_last_cscheme()
+autocmd! VimEnter * doautocmd User InitializeMgr
+
+autocmd! User MgrInitialized call mgr#set_last_cscheme()
 
