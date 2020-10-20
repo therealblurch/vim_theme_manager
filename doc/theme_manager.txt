@@ -76,22 +76,6 @@ of the following keys:
 A number of built in dictionary functions are available for use in the above
 keys.  For a list of all available functions see |mgr-dictionary-functions|.
 
-For example, to add configuration for the ayu colorscheme the following code
-would be used:
-
-  call mgr#init()
-  call mgr#add('ayu', {
-             \ 'variants'       : ['light', 'dark', 'mirage'],
-             \ 'style_variable' : 'g:ayucolor',
-             \ 'default_style'  : 'light',
-             \ 'next_variant'   : function('mgr#nxt_styl_var'),
-             \ 'default_variant': function('mgr#def_styl_var'),
-             \ 'status'         : function('mgr#cscheme_styl'),
-             \ 'lightline'      : function('mgr#cscheme'),
-             \ 'airline'        : function('mgr#cscheme'),
-             \ 'toggle'         : function('mgr#tggl_cscheme_styl')
-             \ })
-
 Colorschemes can also be grouped so that a random colorscheme can be selected
 from a colorscheme that belongs to the same group as the current colorscheme.
 Groups are created with the following functions:
@@ -112,15 +96,32 @@ This function adds a colorscheme to a group.
 
 This function add the current group to colorscheme groups.
 
-For example, to create a group of the seabird themes you would use the
-following code:
+At startup the plugin will trigger the User InitializeMgr autocmd which can be
+used start configuration.  The plugin waits until the User MgrInitialized
+autocmd before it sets the new colorscheme.
 
-  call mgr#init_group()
-  call mgr#add_cscheme('greygull')
-  call mgr#add_cscheme('petrel')
-  call mgr#add_cscheme('seagull')
-  call mgr#add_cscheme('stormpetrel')
-  call mgr#add_group('seabird_themes')
+For example, to add configuration for the ayu colorscheme and create a group
+containing the seabird colorschemes the following code would be used:
+
+  autocmd User InitializeMgr call mgr#init()
+                         \ | call mgr#add('ayu', {
+                         \                'variants'       : ['light', 'dark', 'mirage'],
+                         \                'style_variable' : 'g:ayucolor',
+                         \                'default_style'  : 'light',
+                         \                'next_variant'   : function('mgr#nxt_styl_var'),
+                         \                'default_variant': function('mgr#def_styl_var'),
+                         \                'status'         : function('mgr#cscheme_styl'),
+                         \                'lightline'      : function('mgr#cscheme'),
+                         \                'airline'        : function('mgr#cscheme'),
+                         \                'toggle'         : function('mgr#tggl_cscheme_styl')
+                         \                })
+                         \ | call mgr#init_group()
+                         \ | call mgr#add_cscheme('greygull')
+                         \ | call mgr#add_cscheme('petrel')
+                         \ | call mgr#add_cscheme('seagull')
+                         \ | call mgr#add_cscheme('stormpetrel')
+                         \ | call mgr#add_group('seabird_themes')
+                         \ | doautocmd User MgrInitialized
 
 ================================================================================
 KEYMAPS
