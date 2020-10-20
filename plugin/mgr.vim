@@ -117,21 +117,22 @@ augroup END
 augroup StatusBarTheme
   autocmd!
   autocmd Colorscheme * call writefile([&background, expand('<amatch>')], expand(g:colorscheme_file))
-                    \ | if mgr#which_status(expand('<amatch>')) == "airline"
+                    \ | let g:which_status = mgr#which_status(expand('<amatch>'))
+                    \ | if g:which_status == "airline"
                     \ |   packadd vim-airline
                     \ |   packadd vim-airline-themes
                     \ |   let g:airline_section_x = airline#section#create_right(['%-25{g:current_color_dictionary.status()}', 'bookmark', 'tagbar', 'vista', 'gutentags', 'grepper', 'filetype'])
                     \ |   call mgr#airline_theme()
                     \ | endif
-                    \ | if mgr#which_status(expand('<amatch>')) == "lightline"
+                    \ | if g:which_status == "lightline"
                     \ |   packadd lightline.vim | packadd lightline-buffer
                     \ |   packadd lightline_foobar.vim
                     \ |   call mgr#lightline_updt()
                     \ | endif
-                    \ | if mgr#which_status(expand('<amatch>')) == "none" && exists('g:loaded_lightline')
+                    \ | if g:which_status == "none" && exists('g:loaded_lightline')
                     \ |   call mgr#lightline_updt()
                     \ | endif
-                    \ | if mgr#which_status(expand('<amatch>')) == "none" && exists('g:loaded_airline')
+                    \ | if g:which_status == "none" && exists('g:loaded_airline')
                     \ |   call mgr#airline_theme()
                     \ | endif
 augroup END
