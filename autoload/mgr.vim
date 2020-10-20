@@ -2,8 +2,12 @@ function mgr#init() abort
   let g:colorscheme_map = {}
 endfunction
 
-function! mgr#add (name, opts) abort
-  let g:colorscheme_map[a:name] = extend (a:opts, {'status': function('mgr#cscheme')}, 'keep')
+function! mgr#add (name, ...) abort
+  let l:opts = {}
+  if a:0 == 1
+    let l:opts = a:1
+  endif
+  let g:colorscheme_map[a:name] = extend (l:opts, {'status': function('mgr#cscheme')}, 'keep')
 endfunction
 
 function mgr#init_groups() abort
