@@ -100,10 +100,6 @@ endfunction
 augroup ColorschemeSetup
   autocmd!
   if has('patch-8.0.1777')
-    autocmd ColorschemePre Atelier*Dark set background=dark
-    autocmd ColorschemePre Atelier*Light set background=light
-    autocmd ColorschemePre vimspectr*dark set background=dark
-    autocmd ColorschemePre vimspectr*light set background=light
     autocmd ColorSchemePre * let g:current_color_dictionary = mgr#get_color_dict(expand('<amatch>'))
                          \ | if has_key (g:current_color_dictionary, 'default_variant')
                          \ |   if !exists('g:colors_name') || g:colors_name != expand('<amatch>')
