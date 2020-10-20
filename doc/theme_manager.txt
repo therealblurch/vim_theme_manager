@@ -126,10 +126,17 @@ containing the seabird colorschemes the following code would be used:
 ================================================================================
 KEYMAPS
 
-{count}<leader>-   Cycle backwards through theme variants.
-{count}<leader>+   Cycle forwards through theme variants.
-<leader>b          Toggle background.
-<leader>r          Load random colorscheme.
+The following <Plug> mappings with the default keymaps set by the plugin are
+available.
+
+<Plug>PreviousVariant    <leader>-   Cycle backwards through theme variants. Can
+                                     take a count argument.
+<Plug>NextVariant        <leader>+   Cycle forwards through theme variants.  Can
+                                     take a count argument.
+<Plug>ToggleBackground   <leader>b   Toggle background.
+<Plug>RandomScheme       <leader>r   Load random colorscheme.
+<Plug>RandomGroupScheme  <leader>p   Load random colorscheme from colorscheme group.
+
 
 ================================================================================
 OPTIONS                                                    *mgr-options*
