@@ -62,11 +62,7 @@ function! mgr#def_styl_bg_var() dict
   exec 'let ' . self.style_variable . '_' . &background . ' = "' . self.default_style . '"'
 endfunction
 
-function! mgr#nxt_bg_var(delta) dict
-  let &background = (&background == 'dark') ? 'light' : 'dark'
-endfunction
-
-function! mgr#tggl_bg() dict
+function! mgr#tggl_bg(...) dict
   let &background = (&background == 'dark') ? 'light' : 'dark'
 endfunction
 

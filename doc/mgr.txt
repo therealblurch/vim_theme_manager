@@ -230,10 +230,6 @@ Sets the style variant variable in 'style_variable' to the value in the
 Sets the style variant variable in 'style_variable' appended to the current
 background to the value in the 'DefaultStyle' key.
 
-*mgr#nxt_bg_var()*
-
-Switches to the next colorscheme variant by toggling the background.
-
 *mgr#tggl_bg()*
 
 Toggles the background.
