@@ -357,13 +357,13 @@ endfunction
 "   Arguments:
 "     An optional argument contaiing the name of a colorscheme may be used
 function! mgr#set_rand_grp_cscheme (...)
-  if a:0 > 1
-    let l:new_colorscheme = g:colors_name
-  else
+  if a:0 == 1
     let l:new_colorscheme = a:1
+  else
+    let l:new_colorscheme = g:colors_name
   endif
   for colorscheme_group in values(g:colorscheme_groups)
-    if has_key(colorscheme_group, a:1)
+    if has_key(colorscheme_group, l:new_colorscheme)
       let s:colorschemes = sort(keys(colorscheme_group))
       let l:new_colorscheme = s:colorschemes[s:random_no(len(s:colorschemes))]
       break
