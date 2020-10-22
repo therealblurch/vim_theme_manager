@@ -182,7 +182,7 @@ function! mgr#lightline_updt()
     exe 'runtime autoload/lightline/colorscheme/' . g:lightline.colorscheme . '.vim'
     call lightline#init()
     call lightline#colorscheme()
-    call lightline#updte()
+    call lightline#update()
   endtry
 endfunction
 
