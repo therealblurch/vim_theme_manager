@@ -236,7 +236,7 @@ function! mgr#set_rand_cscheme()
   call s:set_cscheme (l:new_colorscheme)
 endfunction
 
-function! mgr#set_last_cscheme()
+function! mgr#set_cscheme()
   let l:last_colorscheme = readfile(expand(g:colorscheme_file))
   let [l:background, l:colorscheme] = l:last_colorscheme
   exec 'set background='.l:background
