@@ -175,20 +175,15 @@ function! mgr#lightline_updt()
   endif
   try
     if has_key(g:current_color_dictionary, 'lightline')
-      let l:new_lightline_colorscheme = g:current_color_dictionary.lightline()
+      let g:lightline.colorscheme = g:current_color_dictionary.lightline()
     else
-      let l:new_lightline_colorscheme = g:default_lightline_colorscheme
+      let g:lightline.colorscheme = g:default_lightline_colorscheme
     endif
-    exe 'runtime autoload/lightline/colorscheme/' . l:new_lightline_colorscheme . '.vim'
-    call s:set_lightline_cscheme(l:new_lightline_colorscheme)
+    exe 'runtime autoload/lightline/colorscheme/' . g:lightline.colorscheme . '.vim'
+    call lightline#init()
+    call lightline#colorscheme()
+    call lightline#updte()
   endtry
-endfunction
-
-function! s:set_lightline_cscheme(name) abort
-  let g:lightline.colorscheme = a:name
-  call lightline#init()
-  call lightline#colorscheme()
-  call lightline#update()
 endfunction
 
 function! s:cscheme_list()
