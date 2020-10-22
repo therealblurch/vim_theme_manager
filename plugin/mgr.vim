@@ -1,35 +1,63 @@
+"================================================================================
+" Exit if script has abready been sourced.
+"================================================================================
 if exists('g:loaded_mgr')
   finish
 endif
 let g:loaded_mgr = 1
 
+"================================================================================
+" Set default values for global configuration variables.
+"================================================================================
+
+" g:prefer_airline
+"   1 - load airline if both airline and lightline themes exist
+"   0 - load lightline if both airline and lightline themes exist
 if !exists ('g:prefer_airline')
   let g:prefer_airline = 1
 endif
 
+" g:default_airline_theme
+"   Name of default airline theme if an airline theme doesn't exist
 if !exists('g:default_airline_theme')
   let g:default_airline_theme = 'distinguished'
 endif
 
+" g:default_lightline_colorscheme
+"   Name of default lightline colorscheme if lightline colorscheme doesn't
+"   exist
 if !exists('g:default_lightline_colorscheme')
   let g:default_lightline_colorscheme = 'powerline'
 endif
 
+" g:colorschem_file
+"   Name of file used to store last colorscheme used
 if !exists('g:colorscheme_file')
   let g:colorscheme_file = '~/.vim/.colorscheme'
 endif
 
+" g:mgr_slash
+"   Character that separates colorscheme name and style in status bar
 if !exists('g:mgr_slash')
   let g:mgr_slash = '/'
 endif
 
+" g:mgr_randomize
+"   Load a random theme on startup
 if !exists('g:mgr_randomize')
   let g:mgr_randomize = 0
 endif
 
+" g:mgr_randomize_group
+"   If the last colorscheme was a member of a group, load a random colorscheme
+"   from the same group
 if !exists('g:mgr_randomize_group')
   let g:mgr_randomize_group = 0
 endif
+
+"================================================================================
+" Define default mappings.
+"================================================================================
 
 if !hasmapto('<Plug>PreviousVariant')
   map <unique> <leader>- <Plug>PreviousVariant
@@ -63,6 +91,10 @@ noremap <silent> <SID>ToggleBackground :call <SID>ToggleBackground()<cr>
 noremap <silent> <SID>RandomScheme :call <SID>RandomScheme()<cr>
 noremap <silent> <SID>RandomGroupScheme :call<SID>RandomGroupScheme(g:colors_name)<cr>
 
+"================================================================================
+" Translate mapped functions to autoloaded functions.
+"================================================================================
+
 function s:PreviousVariant(count)
   call mgr#scheme_var(a:count)
 endfunction
@@ -83,6 +115,14 @@ function s:RandomGroupScheme(last_cscheme)
   call mgr#set_rand_grp_cscheme()
 endfunction
 
+"================================================================================
+" Define actions to take before a colorscheme is set.
+"   1.  Extract the dictionary for the new colorscheme from the colorscheme
+"   map
+"   2.  Set default colorscheme variant if needed
+"   2.  Execute pre commands if they exist
+"================================================================================
+
 augroup ColorschemeSetup
   autocmd!
   if has('patch-8.0.1777')
@@ -99,6 +139,14 @@ augroup ColorschemeSetup
                          \ | endif
   endif
 augroup END
+
+"================================================================================
+" Define actions to take after a colorscheme is set.
+"   1.  Write colorscheme file with new colorscheme information.
+"   2.  If no status bar plugin has been loaded load a statusbar plugin.
+"   3.  If a status bar plugin has been loaded update the theme for the
+"   statusbar.
+"================================================================================
 
 augroup StatusBarTheme
   autocmd!
@@ -123,7 +171,16 @@ augroup StatusBarTheme
                     \ | endif
 augroup END
 
+"================================================================================
+" Call InitializeMgr autocmd to create colorscheme groups and initialize
+" colorscheme map.
+"================================================================================
+
 autocmd! VimEnter * doautocmd User InitializeMgr
+
+"================================================================================
+" When the MgrInitialized autocmd is called, set the colorscheme.
+"================================================================================
 
 autocmd! User MgrInitialized call mgr#set_cscheme()
 
