@@ -3,16 +3,6 @@ if exists('g:loaded_mgr')
 endif
 let g:loaded_mgr = 1
 
-if !exists('g:colorscheme_groups')
-  let g:colorscheme_groups = {
-                             \ }
-endif
-
-if !exists('g:colorscheme_map')
-  let g:colorscheme_map = [
-                          \ ]
-endif
-
 if !exists ('g:prefer_airline')
   let g:prefer_airline = 1
 endif
