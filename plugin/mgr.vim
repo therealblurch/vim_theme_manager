@@ -33,10 +33,6 @@ if !exists('g:mgr_slash')
   let g:mgr_slash = '/'
 endif
 
-if !exists('g:mgr_underscore')
-  let g:mgr_underscore = '_'
-endif
-
 if !exists('g:mgr_randomize')
   let g:mgr_randomize = 0
 endif

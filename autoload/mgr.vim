@@ -113,7 +113,7 @@ function! mgr#cschemeSuffix() dict
 endfunction
 
 function! mgr#cscheme_bg_uscr() dict
-  return g:colors_name . g:mgr_underscore . &background
+  return g:colors_name . '_' . &background
 endfunction
 
 function! mgr#get_color_dict(color_name)

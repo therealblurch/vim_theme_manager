@@ -178,13 +178,6 @@ The character to use as a separator in |mgr#ColorschemeStyle()|,
 
   let g:mgr_slash = '/'
 
-                                                     *g:mgr_underscore*
-
-The character to use as a separator in
-|mgr#cscheme_bg_uscr()|.  Defaults to '_'.
-
-  let g:mgr_underscore = '_'
-
                                                       *g:mgr_randomize*
 Load a random colorscheme from g:colorscheme_map instead of loading the last
 colorscheme.

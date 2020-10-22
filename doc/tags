@@ -4,7 +4,6 @@ g:default_lightline_colorscheme	mgr.txt	/*g:default_lightline_colorscheme*
 g:mgr_randomize	mgr.txt	/*g:mgr_randomize*
 g:mgr_randomize_group	mgr.txt	/*g:mgr_randomize_group*
 g:mgr_slash	mgr.txt	/*g:mgr_slash*
-g:mgr_underscore	mgr.txt	/*g:mgr_underscore*
 g:prefer_airline	mgr.txt	/*g:prefer_airline*
 mgr#add_cscheme(name)	mgr.txt	/*mgr#add_cscheme(name)*
 mgr#add_group(name)	mgr.txt	/*mgr#add_group(name)*
