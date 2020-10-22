@@ -214,10 +214,14 @@ function! s:set_cscheme(new_colorscheme)
   silent exec 'doautocmd Colorscheme ' . a:new_colorscheme
 endfunction
 
-function! mgr#set_rand_grp_cscheme (last_colorscheme)
-  let l:new_colorscheme = a:last_colorscheme
+function! mgr#set_rand_grp_cscheme (...)
+  if a:0 > 1
+    let l:new_colorscheme = g:colors_name
+  else
+    let l:new_colorscheme = a:1
+  endif
   for colorscheme_group in values(g:colorscheme_groups)
-    if has_key(colorscheme_group, a:last_colorscheme)
+    if has_key(colorscheme_group, a:1)
       let s:colorschemes = sort(keys(colorscheme_group))
       let l:new_colorscheme = s:colorschemes[s:random_no(len(s:colorschemes))]
       break

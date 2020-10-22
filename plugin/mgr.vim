@@ -90,7 +90,7 @@ function s:RandomScheme()
 endfunction
 
 function s:RandomGroupScheme(last_cscheme)
-  call mgr#set_rand_grp_cscheme(a:last_cscheme)
+  call mgr#set_rand_grp_cscheme()
 endfunction
 
 augroup ColorschemeSetup
