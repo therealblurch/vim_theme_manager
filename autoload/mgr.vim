@@ -389,10 +389,10 @@ function! mgr#set_cscheme()
   let l:last_colorscheme = readfile(expand(g:colorscheme_file))
   let [l:background, l:colorscheme] = l:last_colorscheme
   exec 'set background='.l:background
-  if g:mgr_randomize
-    call mgr#set_rand_csheme()
-  elseif g:mgr_randomize_group
+  if g:mgr_randomize_group
     call mgr#set_rand_grp_cscheme(l:colorscheme)
+  elseif g:mgr_randomize
+    call mgr#set_rand_csheme()
   else
     call s:set_cscheme(l:colorscheme)
   endif
