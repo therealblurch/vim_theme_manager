@@ -137,7 +137,19 @@ augroup ColorschemeSetup
                          \ |     exec command
                          \ |   endfor
                          \ | endif
+  else
   endif
+    autocmd User ColorSchemePre * let g:current_color_dictionary = mgr#get_color_dict(expand('<amatch>'))
+                              \ | if has_key (g:current_color_dictionary, 'default_variant')
+                              \ |   if !exists('g:colors_name') || g:colors_name != expand('<amatch>')
+                              \ |     call g:current_color_dictionary.default_variant()
+                              \ |   endif
+                              \ | endif
+                              \ | if has_key (g:current_color_dictionary, 'pre')
+                              \ |   for command in g:current_color_dictionary.pre
+                              \ |     exec command
+                              \ |   endfor
+                              \ | endif
 augroup END
 
 "================================================================================

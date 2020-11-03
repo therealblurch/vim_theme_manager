@@ -345,6 +345,8 @@ endfunction
 function! s:set_cscheme(new_colorscheme)
   if has('patch-8.0.1777')
     silent exec 'doautocmd ColorschemePre ' . a:new_colorscheme
+  else
+    silent exec 'doautocmd User ColorschemePre ' . a:new_colorscheme
   endif
   exec 'colors ' . a:new_colorscheme
   let g:colors_name = a:new_colorscheme
