@@ -36,6 +36,8 @@ endfunction
 "         default_style: The users preferred style for the colorscheme.  Used by
 "           |mgr#def_styl_var()| and
 "           |mgr#def_styl_bg_var()| functions.
+"         default_bg: Specifies the preferred background for colorschemes that
+  "         have light and dark variants based on the background.
 function! mgr#add (name, ...) abort
   let l:opts = {}
   if a:0 == 1

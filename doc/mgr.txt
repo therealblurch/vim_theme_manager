@@ -73,6 +73,9 @@ of the following keys:
     |mgr#def_styl_var()| and
     |mgr#def_styl_bg_var()| functions.
 
+  default_bg: The preferred background for colorschemes that have light and dark
+    versions based on the background.
+
 A number of built in dictionary functions are available for use in the above
 keys.  For a list of all available functions see |mgr-dictionary-functions|.
 

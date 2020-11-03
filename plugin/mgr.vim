@@ -123,33 +123,30 @@ endfunction
 "   2.  Execute pre commands if they exist
 "================================================================================
 
+function s:colorscheme_pre (new_colorscheme)
+  let g:current_color_dictionary = mgr#get_color_dict(a:new_colorscheme)
+  if !exists('g:colors_name') || g:colors_name != a:new_colorscheme
+    if has_key (g:current_color_dictionary, 'default_variant')
+      call g:current_color_dictionary.default_variant()
+    endif
+    if has_key (g:current_color_dictionary, 'default_bg')
+       exec 'set background=' . g:current_color_dictionary.default_bg
+     endif
+  endif
+  if has_key (g:current_color_dictionary, 'pre')
+    for command in g:current_color_dictionary.pre
+      exec command
+    endfor
+  endif
+endfunction
+
 augroup ColorschemeSetup
   autocmd!
   if has('patch-8.0.1777')
-    autocmd ColorSchemePre * let g:current_color_dictionary = mgr#get_color_dict(expand('<amatch>'))
-                         \ | if has_key (g:current_color_dictionary, 'default_variant')
-                         \ |   if !exists('g:colors_name') || g:colors_name != expand('<amatch>')
-                         \ |     call g:current_color_dictionary.default_variant()
-                         \ |   endif
-                         \ | endif
-                         \ | if has_key (g:current_color_dictionary, 'pre')
-                         \ |   for command in g:current_color_dictionary.pre
-                         \ |     exec command
-                         \ |   endfor
-                         \ | endif
+    autocmd ColorSchemePre * call s:colorscheme_pre (expand('<amatch>'))
   else
+    autocmd ColorSchemePre * call s:colorscheme_pre (expand('<amatch>'))
   endif
-    autocmd User ColorSchemePre * let g:current_color_dictionary = mgr#get_color_dict(expand('<amatch>'))
-                              \ | if has_key (g:current_color_dictionary, 'default_variant')
-                              \ |   if !exists('g:colors_name') || g:colors_name != expand('<amatch>')
-                              \ |     call g:current_color_dictionary.default_variant()
-                              \ |   endif
-                              \ | endif
-                              \ | if has_key (g:current_color_dictionary, 'pre')
-                              \ |   for command in g:current_color_dictionary.pre
-                              \ |     exec command
-                              \ |   endfor
-                              \ | endif
 augroup END
 
 "================================================================================
@@ -160,27 +157,31 @@ augroup END
 "   statusbar.
 "================================================================================
 
+function s:colorscheme_post (new_colorscheme)
+  call writefile([&background, a:new_colorscheme], expand(g:colorscheme_file))
+  let g:which_status = mgr#which_status(a:new_colorscheme)
+  if g:which_status == "airline"
+    packadd vim-airline
+    packadd vim-airline-themes
+    let g:airline_section_x = airline#section#create_right(['%-25{g:current_color_dictionary.status()}', 'bookmark', 'tagbar', 'vista', 'gutentags', 'grepper', 'filetype'])
+    call mgr#airline_theme()
+  endif
+  if g:which_status == "lightline"
+    packadd lightline.vim | packadd lightline-buffer
+    packadd lightline_foobar.vim
+    call mgr#lightline_updt()
+  endif
+  if g:which_status == "none" && exists('g:loaded_lightline')
+    call mgr#lightline_updt()
+  endif
+  if g:which_status == "none" && exists('g:loaded_airline')
+    call mgr#airline_theme()
+  endif
+endfunction
+
 augroup StatusBarTheme
   autocmd!
-  autocmd Colorscheme * call writefile([&background, expand('<amatch>')], expand(g:colorscheme_file))
-                    \ | let g:which_status = mgr#which_status(expand('<amatch>'))
-                    \ | if g:which_status == "airline"
-                    \ |   packadd vim-airline
-                    \ |   packadd vim-airline-themes
-                    \ |   let g:airline_section_x = airline#section#create_right(['%-25{g:current_color_dictionary.status()}', 'bookmark', 'tagbar', 'vista', 'gutentags', 'grepper', 'filetype'])
-                    \ |   call mgr#airline_theme()
-                    \ | endif
-                    \ | if g:which_status == "lightline"
-                    \ |   packadd lightline.vim | packadd lightline-buffer
-                    \ |   packadd lightline_foobar.vim
-                    \ |   call mgr#lightline_updt()
-                    \ | endif
-                    \ | if g:which_status == "none" && exists('g:loaded_lightline')
-                    \ |   call mgr#lightline_updt()
-                    \ | endif
-                    \ | if g:which_status == "none" && exists('g:loaded_airline')
-                    \ |   call mgr#airline_theme()
-                    \ | endif
+  autocmd Colorscheme * call s:colorscheme_post(expand('<amatch>'))
 augroup END
 
 "================================================================================
