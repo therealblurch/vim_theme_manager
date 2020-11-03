@@ -196,4 +196,3 @@ autocmd! VimEnter * doautocmd User InitializeMgr
 "================================================================================
 
 autocmd! User MgrInitialized call mgr#set_cscheme()
-
