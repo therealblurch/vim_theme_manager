@@ -145,7 +145,7 @@ augroup ColorschemeSetup
   if has('patch-8.0.1777')
     autocmd ColorSchemePre * call s:colorscheme_pre (expand('<amatch>'))
   else
-    autocmd ColorSchemePre * call s:colorscheme_pre (expand('<amatch>'))
+    autocmd User ColorSchemePre * call s:colorscheme_pre (expand('<amatch>'))
   endif
 augroup END
 
