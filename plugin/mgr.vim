@@ -120,7 +120,8 @@ endfunction
 "   1.  Extract the dictionary for the new colorscheme from the colorscheme
 "   map
 "   2.  Set default colorscheme variant if needed
-"   2.  Execute pre commands if they exist
+"   3.  Set defaut background if specified
+"   4.  Execute pre commands if they exist
 "================================================================================
 
 function s:colorscheme_pre (new_colorscheme)
