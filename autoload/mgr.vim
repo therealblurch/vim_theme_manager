@@ -376,6 +376,29 @@ function! mgr#set_rand_grp_cscheme (...)
   call s:set_cscheme (l:new_colorscheme)
 endfunction
 
+" Change to the next colorscheme in a list.
+function! mgr#set_next_grp_cscheme (delta, ...)
+  let l:is_group_member = 0
+  if a:0 == 2
+    let l:new_colorscheme = a:2
+  else
+    let l:new_colorscheme = g:colors_name
+  endif
+  for colorscheme_group in values(g:colorscheme_groups)
+    if has_key(colorscheme_group, l:new_colorscheme)
+      let l:colorschemes = sort(keys(colorscheme_group))
+      let l:is_group_member = 0
+      break
+    endif
+  endfor
+  if !l:is_group_member || !g:mgr_next_group
+    let l:colorschemes = s:cscheme_list()
+  endif
+  let l:num_schemes = len(l:colorschemes)
+  let l:new_colorscheme = l:colorschemes[((a:delta+index(l:colorschemes, l:new_colorscheme)) % l:num_schemes + l:num_schemes) % l:num_schemes]
+  call s:set_cscheme (l:new_colorscheme)
+endfunction
+
 " mgr#set_rand_cscheme
 "   Choose a new colorscheme from the colorschemes defined in the colorscheme
 "   map.

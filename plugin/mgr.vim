@@ -55,6 +55,14 @@ if !exists('g:mgr_randomize_group')
   let g:mgr_randomize_group = 0
 endif
 
+" g:mgr_next_group
+"   If set to 1, choosing the next colorscheme will move to the next
+"   colorscheme in the current group.  Otherwise, it will move to the next
+"   colorscheme in the dictionary.
+if !exists('g:mgr_next_group')
+  let g:mgr_next_group = 0
+endif
+
 "================================================================================
 " Define default mappings.
 "================================================================================
@@ -65,6 +73,14 @@ endif
 
 if !hasmapto('<Plug>NextVariant')
   map <unique> <leader>+ <Plug>NextVariant
+endif
+
+if !hasmapto('<Plug>PreviousCScheme')
+  map <unique><leader>ps <Plug>PreviousCScheme
+endif
+
+if !hasmapto('<Plug>NextCScheme')
+  map <unique><leader>ns <Plug>NextCScheme
 endif
 
 if !hasmapto('<Plug>ToggleBackground')
@@ -81,12 +97,16 @@ endif
 
 noremap <unique> <script> <Plug>PreviousVariant <SID>PreviousVariant
 noremap <unique> <script> <Plug>NextVariant <SID>NextVariant
+noremap <unique> <script> <Plug>PreviousCScheme <SID>PreviousCScheme
+noremap <unique> <script> <Plug>NextCScheme <SID>NextCScheme
 noremap <unique> <script> <Plug>ToggleBackground <SID>ToggleBackground
 noremap <unique> <script> <Plug>RandomScheme <SID>RandomScheme
 noremap <unique> <script> <Plug>RandomGroupScheme <SID>RandomGroupScheme
 
 noremap <silent> <SID>PreviousVariant :call <SID>PreviousVariant(-v:count1)<cr>
 noremap <silent> <SID>NextVariant :call <SID>NextVariant(-v:count1)<cr>
+noremap <silent> <SID>PreviousCScheme :call <SID>PreviousCScheme(-v:count1)<cr>
+noremap <silent> <SID>NextCScheme :call <SID>NextCScheme(v:count1)<cr>
 noremap <silent> <SID>ToggleBackground :call <SID>ToggleBackground()<cr>
 noremap <silent> <SID>RandomScheme :call <SID>RandomScheme()<cr>
 noremap <silent> <SID>RandomGroupScheme :call<SID>RandomGroupScheme(g:colors_name)<cr>
@@ -101,6 +121,14 @@ endfunction
 
 function s:NextVariant(count)
   call mgr#scheme_var(a:count)
+endfunction
+
+function s:PreviousCScheme(count)
+  call mgr#set_next_grp_cscheme(a:count)
+endfunction
+
+function s:NextCScheme(count)
+  call mgr#set_next_grp_cscheme(a:count)
 endfunction
 
 function s:ToggleBackground()
