@@ -104,7 +104,7 @@ noremap <unique> <script> <Plug>RandomScheme <SID>RandomScheme
 noremap <unique> <script> <Plug>RandomGroupScheme <SID>RandomGroupScheme
 
 noremap <silent> <SID>PreviousVariant :call <SID>PreviousVariant(-v:count1)<cr>
-noremap <silent> <SID>NextVariant :call <SID>NextVariant(-v:count1)<cr>
+noremap <silent> <SID>NextVariant :call <SID>NextVariant(v:count1)<cr>
 noremap <silent> <SID>PreviousCScheme :call <SID>PreviousCScheme(-v:count1)<cr>
 noremap <silent> <SID>NextCScheme :call <SID>NextCScheme(v:count1)<cr>
 noremap <silent> <SID>ToggleBackground :call <SID>ToggleBackground()<cr>
